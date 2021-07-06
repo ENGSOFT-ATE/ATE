@@ -1,0 +1,75 @@
+<%- include('./include/header') %>
+
+<!--|||||||||||||||||||||||||||||||||||||| CONTEUDO ||||||||||||||||||||||||||||||||||||||-->
+
+<body>
+    <%- include('./include/navbar') %>
+
+    <section class="middle">
+
+        <!-- MENU DE ETAPAS -->
+        <nav class="col-sm-12 y-9">
+            <ul class="nav nav-tabs col-sm-6">
+                <li class="nav-item">
+                    <a href="/pag1">ETAPA 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">ETAPA 2</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag3">ETAPA 3</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag4">ETAPA 4</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag5">ETAPA 5</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- TITULO -->
+        <h2 id="title_h2">ETAPA 2: Caso de Teste (CT)</h2>
+        <hr id="line" />
+
+        <!-- PARTE CENTRAL -->
+        <section class="container">
+            <form>
+
+                <!-- VALORES CasoTeste PARA O e P -->
+                <section class="row">
+                    <div class="form-group col-sm-6 ">
+                        <label for="message">Preencha o caso de teste do Programa O</label>
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="valor">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="tam">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="v[]">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="esq">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="mid">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="dir">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="v[mid]">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="message">Preencha o caso de teste do Programa P</label>
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="valor">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="tam">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="v[]">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="esq">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="mid">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="dir">
+                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="v[mid]">
+                    </div>
+                </section>
+
+                <!-- BOTÕES VOLTAR~PROXIMO -->
+                <section class="d-flex justify-content-between p-3">
+                    <a href="/pag1" type="submit" class="btn-lg btn-warning">Voltar</a>
+                    <a href="/pag3" type="submit" class="btn-lg btn-success">Próximo</a>
+                </section>
+
+            </form>
+        </section>
+    </section>
+</body>
+<%- include('./include/footer') %>

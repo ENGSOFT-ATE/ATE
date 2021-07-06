@@ -1,0 +1,108 @@
+<%- include('./include/header') %>
+
+<!--|||||||||||||||||||||||||||||||||||||| CONTEUDO ||||||||||||||||||||||||||||||||||||||-->
+
+<body>
+    <%- include('./include/navbar') %>
+
+    <section class="middle">
+
+        <!-- MENU DE ETAPAS -->
+        <nav class="col-sm-12 y-9">
+            <ul class="nav nav-tabs col-sm-6">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">ETAPA 1</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag2">ETAPA 2</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag3">ETAPA 3</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag4">ETAPA 4</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/pag5">ETAPA 5</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- TITULO -->
+        <h2 id="title_h2">ETAPA 1: Insira os Programas O e P</h2>
+        <hr id="line" />
+
+        <!-- PARTE CENTRAL -->
+        <section class="container">
+            <form>
+                <!-- TEXTAREAS DOS PROGRAMAS O E P -->
+                <section class="row">
+
+                    <!-- PROGRAMA O -->
+                    <div class="form-group col-sm-6">
+                        <label for="message">Programa O</label>
+                        <textarea class="form-control" id="message" rows="10" placeholder="Inserir código">
+    int buscaBin (int valor, int tam, int v[]) {
+        int esq = 0, mid, dir = tam-1;
+        while (esq <= dir) {
+            mid = (esq + dir)/2;
+            if (v[mid] == valor)
+                return mid;
+            if (v[mid] < valor)
+                esq = mid + 1;
+            else
+                dir = mid - 1;
+        }
+        return -1
+    }
+                            </textarea>
+                    </div>
+
+                    <!-- PROGRAMA P -->
+                    <div class="form-group col-sm-6">
+                        <label for="message">Programa P</label>
+                        <textarea class="form-control" id="message" rows="10" placeholder="Inserir código">
+    int buscaBin (int valor, int tam, int v[]) {
+        int esq = 0, mid, dir = tam-1;
+        while (esq < dir) {
+            mid = (esq + dir)/2;
+            if (v[mid] == valor)
+                return mid;
+            if (v[mid] < valor)
+                esq = mid + 1;
+            else
+                dir = mid - 1;
+        }
+        return -1
+    }
+                            </textarea>
+                    </div>
+                </section>
+
+                <!-- VARIÁVEIS DOS PROGRAMAS -->
+                <section class="row">
+                    <!-- VARIÁVEIS DO PROG O -->
+                    <div class="form-group col-sm-6">
+                        <label for="message">Variáveis do programa O</label>
+                        <input type="text" class="form-control" id="message" placeholder="var1; var2; varN"
+                            value="valor; tam; v[]; esq; mid; dir; v[mid]" />
+                    </div>
+                    <!-- VARIÁVEIS DO PROG P-->
+                    <div class="form-group col-sm-6">
+                        <label for="message">Variáveis do programa P</label>
+                        <input type="text" class="form-control" id="message" placeholder="ar1; var2; varN"
+                            value="valor; tam; v[]; esq; mid; dir; v[mid]" />
+                    </div>
+                </section>
+
+                <!-- BOTÕES VOLTAR~PROXIMO -->
+                <section class="d-flex justify-content-between p-3">
+                    <a href="/pag1" type="submit" class="btn-lg btn-warning">Página Inicial</a>
+                    <a href="/pag2" type="submit" class="btn-lg btn-success">Próximo</a>
+                </section>
+            </form>
+        </section>
+    </section>
+</body>
+
+<%- include('./include/footer') %>

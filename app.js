@@ -10,8 +10,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', async (req, res) => {
-    res.render('index');
+app.get(['/', '/pag1'], async (req, res) => {
+    res.render('pag1');
+});
+
+app.get('/pag2', async (req, res) => {
+    res.render('pag2');
+});
+
+app.get('/pag3', async (req, res) => {
+    res.render('pag3');
+});
+
+app.get('/pag4', async (req, res) => {
+    res.render('pag4');
+});
+
+app.get('/pag5', async (req, res) => {
+    res.render('pag1');
 });
 
 app.listen(3000);
