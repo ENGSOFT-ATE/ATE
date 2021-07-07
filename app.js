@@ -27,7 +27,7 @@ app.get('/pag4', async (req, res) => {
 });
 
 app.get('/pag5', async (req, res) => {
-    res.render('pag1');
+    res.render('pag5');
 });
 
 app.listen(3000);

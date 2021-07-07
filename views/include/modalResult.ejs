@@ -1,0 +1,107 @@
+<!-- MODEL M(C-USO) -->
+<div class="modal fade" id="MCUSO" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Legenda M(c-uso)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="img/cuso.png" class="img-fluid"/>
+            <p style="font-size: 12px;text-align:justify" class="p-3">
+                N = quantidade de usos computacionais (def→c-uso) para cálculo aritmético, recebimento e retorno de parâmetro, atribuição de valor, impressão de valores e correlatos, no subcaminho; <br/>
+                i = i-ésimo comando de uso computacional (c-uso), no subcaminho; <br/>
+                wj= j-ésima variável w, operando aritmético numa linha executável; <br/>
+                M = quantidade de variáveis numa linha executável;<br/>
+                dl= l-ésimo operador aritmético, operador de atribuição, comandos de impressão, função/comando de recebimento de parâmetro, função de retorno de parâmetro d, numa linha executável; <br/>
+                Q = quantidade de operadores/comandos numa linha executável; <br/>
+                ck = k-ésima constante c, numa linha executável; <br/>
+                R = quantidade de constantes numa linha executável; <br/>
+                i,j,k,l = (1,2,3,...,N). 
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">FECHAR</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODEL M(P-USO) -->
+<div class="modal fade" id="MPUSO" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Legenda M(p-uso)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="img/puso.png" class="img-fluid"/>
+            <p style="font-size: 12px;text-align:justify" class="p-3">
+                S = quantidade de predicados lógicos (p-uso) em estruturas de seleção/repetição no subcaminho; <br/> 
+                n = n-ésima estrutura de seleção/repetição (p-uso) no subcaminho; <br/>
+                om = m-ésimo operador de conjunção, disjunção ou negação o em proposição lógica composta numa estrutura de seleção/repetição; <br/>
+                T = quantidade de operadores de conjunção, disjunção ou negação em proposição composta numa estrutura de seleção/repetição; <br/>
+                V = quantidade de proposições lógicas simples numa estrutura de seleção/repetição; <br/>
+                f = f-ésima proposição lógica simples numa estrutura de seleção/repetição; <br/>
+                a, b = operandos da proposição lógica simples numa estrutura de seleção/repetição;<br/> 
+                q = operador relacional da proposição lógica simples numa estrutura de seleção/repetição; <br/>
+                r = resultado da proposição lógica simples numa estrutura de seleção/repetição; <br/>
+                z = resultado da proposição lógica composta numa estrutura de seleção/repetição; <br/>
+                n,m,f = (1,2,3,...,N). 
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">FECHAR</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODEL V(Var) -->
+<div class="modal fade" id="VVAR" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Legenda V(var)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="img/vvar.png" class="img-fluid"/>
+            <p style="font-size: 12px;text-align:justify" class="p-3">
+                X = quantidade de variáveis no último nodo executado do programa; <br/>
+                vg = g-ésimo valores das variáveis v no último nodo executado do programa; <br/>
+                Y = quantidade de variáveis de saída resultantes após execução do programa; <br/>
+                sh = h-ésimo valores de saída das variáveis de retorno, impressão, atribuição ou outra operação resultante s, após execução do programa; <br/>
+                g,h = (1,2,3,...,N). 
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">FECHAR</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODEL AtE -->
+<div class="modal fade" id="ATE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Legenda AtE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <img src="img/ate.png" class="img-fluid"/>
+            <p style="font-size: 12px;text-align:justify" class="p-3">
+                Obtida pela soma de M(c-uso), M(p-uso) e V(var).
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">FECHAR</button>
+        </div>
+        </div>
+    </div>
+</div>
