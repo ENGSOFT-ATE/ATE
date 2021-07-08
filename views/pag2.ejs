@@ -6,7 +6,6 @@
     <%- include('./include/navbar') %>
 
     <section class="middle">
-
         <!-- MENU DE ETAPAS -->
         <nav class="col-sm-12 y-9 d-flex justify-content-center">
             <ul class="nav nav-tabs col-sm-6">
@@ -26,38 +25,30 @@
 
         <!-- PARTE CENTRAL -->
         <section class="container">
-            <form>
+            <form action="/pag2" method="post">
 
                 <!-- VALORES CasoTeste PARA O e P -->
                 <section class="row">
                     <div class="form-group col-sm-6 ">
                         <label for="message">Preencha o caso de teste do Programa O</label>
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="valor">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="tam">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="v[]">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="esq">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="mid">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="dir">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
-                            placeholder="v[mid]">
+                        <% for (var i = 0; i < vars_prog_o.length; i++) { %>
+                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_o" placeholder="<%= vars_prog_o[i] %>">
+                        <% } %>
+                        <div id="emailHelp" class="form-text">Se array, separe por vírgula. Ex: 1, 2, 3, 4</div> 
                     </div>
                     <div class="form-group col-sm-6">
                         <label for="message">Preencha o caso de teste do Programa P</label>
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="valor">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="tam">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="v[]">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="esq">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="mid">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1" placeholder="dir">
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
-                            placeholder="v[mid]">
+                        <% for (var i = 0; i < vars_prog_p.length; i++) { %>
+                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_p" placeholder="<%= vars_prog_p[i] %>">
+                        <% } %>
+                        <div id="emailHelp" class="form-text">Se array, separe por vírgula. Ex: 1, 2, 3, 4</div>
                     </div>
                 </section>
 
                 <!-- BOTÕES VOLTAR~PROXIMO -->
                 <section class="d-flex justify-content-between p-3">
                     <a href="/pag1" type="submit" class="btn-lg btn-warning">Voltar</a>
-                    <a href="/pag3" type="submit" class="btn-lg btn-success">Próximo</a>
+                    <button type="submit" class="btn-lg btn-success">Próximo</a>
                 </section>
 
             </form>

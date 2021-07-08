@@ -26,108 +26,116 @@
 
         <!-- PARTE CENTRAL -->
         <section class="container">
-            <form>
-                
+
+            
+            <form action="/pag3" method="post">
+                <!-- LINHA COM TABELA DE INSERÇÃO DOS DADOS -->
                 <section class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Linha</th>
+                                <th scope="col">Eq.</th>
+                                <th scope="col">Variável O</th>
+                                <th scope="col">Dado de O (Hexadecimal)</th>
+                                <th scope="col">Variável P</th>
+                                <th scope="col">Dado de P (Hexadecimal)</th>
+                                <th>
+                                    <button type="button" class="btn btn-success">+</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
+                            <tr>
+                                <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="numero_linhas">
+                                        <% for (var i = 0; i < prog_o.length; i++) { %>
+                                            <option value="<%= i %>" selected>#<%= i %> <%= prog_o[i] %></option>
+                                        <% } %>
+                                    </select>
+                                </td>
+                                
+                                <!-- SELEÇÃO DA EQUAÇÃO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="equacoes">
+                                        <option value="1" selected>M(c-uso)</option>
+                                        <option value="2">M(p-uso)</option>
+                                        <option value="3">V(var)</option>
+                                    </select>
+                                </td>
 
-                    <!-- COLUNA PROGRAMA O -->
-                    <section class="form-group col-sm-6">
-                        <p class="h4">Programa O</p>
-                        
-                        <!-- LINHA DE CÓDIGO -->
-                        <section class="container py-3">
-                            <div class="row"><label for="inputAddress">#1 - int buscaBin (int valor, int tam, int v[]) {</label></div>
-            
-                            <div class="row row-cols-3">
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="valor"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="tam"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="esq"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="mid"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="dir"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[mid]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="while (esq <div)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] == valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] < valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="return"></div>
-                            </div>
-                        </section>
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="var_o">
+                                        <% for (var i = 0; i < vars_prog_o.length; i++) { %>
+                                            <option value="<%= vars_prog_o[i] %>" selected><%= vars_prog_o[i] %></option>
+                                        <% } %>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_var_o" placeholder="valor prog O"></td>
+                                
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="var_p">
+                                        <% for (var i = 0; i < vars_prog_p.length; i++) { %>
+                                            <option value="<%= vars_prog_p[i] %>" selected><%= vars_prog_p[i] %></option>
+                                        <% } %>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_var_p" placeholder="valor prog O"></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger my-2">X</button>
+                                </td>
+                            </tr>
 
-                        <!-- LINHA DE CÓDIGO -->
-                        <section class="container py-3">
-                            <div class="row row-cols-3">
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="valor"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="tam"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="esq"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="mid"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="dir"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[mid]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="while (esq <div)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] == valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] < valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="return"></div>
-                            </div>
-                        </section>
-            
-                    </section>
+                            
 
-                    <!-- COLUNA PROGRAMA P -->
-                    <section class="form-group col-sm-6">
-                        <p class="h4">Programa P</p>
-                        
-                        <!-- LINHA DE CÓDIGO -->
-                        <section class="container py-3">
-                            <div class="row"><label for="inputAddress">#1 - int buscaBin (int valor, int tam, int v[]) {</label></div>
-                            <div class="row row-cols-3">
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="valor"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="tam"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="esq"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="mid"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="dir"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[mid]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="while (esq <div)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] == valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] < valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="return"></div>
-                            </div>
-                        </section>
-
-                        <!-- LINHA DE CÓDIGO -->
-                        <section class="container py-3">
-                            <div class="row"><label for="inputAddress">#2 - int esq = 0, mid, dir = tam-1;</label></div>
-                            <div class="row row-cols-3">
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="valor"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="tam"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="esq"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="mid"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="dir"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="v[mid]"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="while (esq <div)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] == valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="if(v[mid] < valor)"></div>
-                                <div class="col"><input type="text" class="form-control form-control-sm my-2 mx-2" id="inputAddress" placeholder="return"></div>
-                            </div>
-                        </section>
-
-                    </section>
-
+                        </tbody>
+                    </table>
+                
                 </section>
-
 
 
                 <!-- BOTÕES VOLTAR~PROXIMO -->
                 <section class="d-flex justify-content-between p-3">
                     <a href="/pag2" type="submit" class="btn-lg btn-warning">Voltar</a>
-                    <a href="/pag4" type="submit" class="btn-lg btn-success">Próximo</a>
+                    <button type="submit" class="btn-lg btn-success">Próximo</a>
                 </section>
 
             </form>
+
+
+            <!-- FORMULAS -->
+            <section class="row my-5">
+                <h2 class="h4">Fórmulas</h2>
+                <div class="col col-md-3 my-3">
+                    <p>M(c-uso) (i)</p>
+                    <img src="img/cuso.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MCUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-4 my-3">
+                    <p>M(p-uso) (ii)</p>
+                    <img src="img/puso.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MPUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-2 my-3">
+                    <p>V(var) (iii)</p>
+                    <img src="img/vvar.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#VVAR">VER MAIS</button>
+                </div>
+                <div class="col col-md-3 my-3">
+                    <p>AtE (iv)</p>
+                    <img src="img/ate.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#ATE">VER MAIS</button>
+                </div>
+            </section>
         </section>
     </section>
     
+    <%- include('./include/modalResult') %>
 </body>
 
 

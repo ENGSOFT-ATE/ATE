@@ -26,14 +26,14 @@
 
         <!-- PARTE CENTRAL -->
         <section class="container">
-            <form>
+            <form action="/pag1" method="post">
                 <!-- TEXTAREAS DOS PROGRAMAS O E P -->
                 <section class="row">
 
                     <!-- PROGRAMA O -->
                     <div class="form-group col-sm-6">
                         <label for="message">Programa O</label>
-                        <textarea class="form-control" id="message" rows="10" placeholder="Inserir código">
+                        <textarea class="form-control" id="message" rows="10" name="prog_o" placeholder="Inserir código">
 int buscaBin (int valor, int tam, int v[]) {
     int esq = 0, mid, dir = tam-1;
     while (esq <= dir) {
@@ -47,13 +47,13 @@ int buscaBin (int valor, int tam, int v[]) {
     }
     return -1
 }
-                            </textarea>
+                        </textarea>
                     </div>
 
                     <!-- PROGRAMA P -->
                     <div class="form-group col-sm-6">
                         <label for="message">Programa P</label>
-                        <textarea class="form-control" id="message" rows="10" placeholder="Inserir código">
+                        <textarea class="form-control" id="message" name="prog_p" rows="10" placeholder="Inserir código">
 int buscaBin (int valor, int tam, int v[]) {
     int esq = 0, mid, dir = tam-1;
     while (esq < dir) {
@@ -67,31 +67,36 @@ int buscaBin (int valor, int tam, int v[]) {
     }
     return -1
 }
-                            </textarea>
+                        </textarea>
                     </div>
                 </section>
 
                 <!-- VARIÁVEIS DOS PROGRAMAS -->
                 <section class="row py-4">
+
                     <!-- VARIÁVEIS DO PROG O -->
                     <div class="form-group col-sm-6">
                         <label for="message">Variáveis do programa O</label>
-                        <input type="text" class="form-control" id="message" placeholder="var1; var2; varN"
+                        <input type="text" class="form-control" name="vars_prog_o" id="message" placeholder="var1; var2; varN"
                             value="valor; tam; v[]; esq; mid; dir; v[mid]" />
+                        <div id="emailHelp" class="form-text">Se array, adicione colchetes após seu nome. Ex: list[]</div>
                     </div>
+
                     <!-- VARIÁVEIS DO PROG P-->
                     <div class="form-group col-sm-6">
                         <label for="message">Variáveis do programa P</label>
-                        <input type="text" class="form-control" id="message" placeholder="ar1; var2; varN"
+                        <input type="text" class="form-control" name="vars_prog_p" id="message" placeholder="ar1; var2; varN"
                             value="valor; tam; v[]; esq; mid; dir; v[mid]" />
+                        <div id="emailHelp" class="form-text">Se array, adicione colchetes após seu nome. Ex: list[]</div>
                     </div>
                 </section>
 
                 <!-- BOTÕES VOLTAR~PROXIMO -->
                 <section class="d-flex justify-content-between p-3">
                     <a href="/pag1" type="submit" class="btn-lg btn-warning">Página Inicial</a>
-                    <a href="/pag2" type="submit" class="btn-lg btn-success">Próximo</a>
+                    <button type="submit" class="btn-lg btn-success">Próximo</a>
                 </section>
+                
             </form>
         </section>
     </section>

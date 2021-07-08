@@ -26,26 +26,36 @@
 
         <!-- PARTE CENTRAL -->
         <section class="container">
-            <form>
+            <form action="/pag4" method="POST">
                 <section class="row">
                     <!-- PROGRAMA O -->
                     <div class="form-group col-sm-6">
-                        <label for="message">SubCaminho de teste do Programa O</label>
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
-                            placeholder="1, 2, 3, 4, 8, 9">
+                        <label for="message" class="mt-3">SubCaminho de teste do Programa O</label>
+                        <input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="1, 2, 3, 4, 8, 9" name="subcaminho_o">
+                        <label for="message" class="mt-3">SubCaminho em Notação</label>
+                        <input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="(n, (m, k), bool, var)" name="subcaminho_o_not">
+                        <div id="emailHelp" class="form-text">n: Nó Inicial;&nbsp; (m, k): Aresta final;&nbsp; bool: Valor boleano da Aresta;&nbsp; var: Variável; </div>
+                        
                     </div>
-                    <!-- PROGRAMA O -->
+                    <!-- PROGRAMA P -->
                     <div class="form-group col-sm-6">
-                        <label for="message">SubCaminho de teste do Programa P</label>
-                        <input type="email" class="form-control my-2" id="exampleFormControlInput1"
-                            placeholder="1, 2, 3, 4, 8, 9">
+                        <label for="message" class="mt-3">SubCaminho de teste do Programa P</label>
+                        <input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="1, 2, 3, 4, 8, 9" name="subcaminho_p">
+                        <label for="message" class="mt-3">SubCaminho em Notação</label>
+                        <input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                            placeholder="(n, (m, k), bool, var)" name="subcaminho_p_not">
+                        <div id="emailHelp" class="form-text">n: Nó Inicial;&nbsp; (m, k): Aresta final;&nbsp; bool: Valor boleano da Aresta;&nbsp; var: Variável; </div>
+                        
                     </div>
                 </section>
 
                 <!-- BOTÕES VOLTAR~PROXIMO -->
                 <section class="d-flex justify-content-between p-3">
                     <a href="/pag3" type="submit" class="btn-lg btn-warning">Voltar</a>
-                    <a href="/pag5" type="submit" class="btn-lg btn-success">Próximo</a>
+                    <button type="submit" class="btn-lg btn-success">Próximo</a>
                 </section>
 
             </form>
