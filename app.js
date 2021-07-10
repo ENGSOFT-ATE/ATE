@@ -26,7 +26,7 @@ app.get(['/', '/pag1'], function(req, res){
     res.render('pag1');
 });
 
-app.post(['/', '/pag1'], function(req, res){
+app.post('/pag2', function(req, res){
     // PROGRAMAS O E P
     let prog_o = req.body.prog_o.split("\n");
     let prog_p = req.body.prog_p.split("\n");
@@ -41,14 +41,14 @@ app.post(['/', '/pag1'], function(req, res){
     VARS_PROG_P = vars_prog_p;
 
     //ENVIANDO PARA O PASSO 2 AS VARIÁVEIS DO PROGRAMA
-    res.render('../views/pag2', {
+    res.render('pag2', {
         vars_prog_o: vars_prog_o,
         vars_prog_p: vars_prog_p
     });
 });
 
 
-app.post('/pag2', function(req, res){
+app.post('/pag3', function(req, res){
     // VALORES DAS VARIÁVEIS DE O E P
     let value_vars_prog_o = req.body.value_vars_prog_o;
     let value_vars_prog_p = req.body.value_vars_prog_p;
@@ -67,7 +67,7 @@ app.post('/pag2', function(req, res){
 });
 
 
-app.post('/pag3', function(req, res){
+app.post('/pag4', function(req, res){
     // INFORMAÇÕES VINDAS DO PASSO 3 (ARRAYS)
     let numero_linhas = req.body.numero_linhas;
     let equacoes = req.body.equacoes;
@@ -89,7 +89,7 @@ app.post('/pag3', function(req, res){
 });
 
 
-app.post('/pag4', function(req, res){
+app.post('/pag5', function(req, res){
     // SUBCAMINHOS e SUCAMINHOS COM NOTAÇÃO de O E P
     let subcaminho_o = req.body.subcaminho_o;
     let subcaminho_o_not = req.body.subcaminho_o_not;
@@ -103,11 +103,6 @@ app.post('/pag4', function(req, res){
     SUBCAMINHO_P_NOT = subcaminho_p_not;
     
     // RENDERIZAR RESULTADOS NA PÁGINA 5
-    res.render('pag5');
-});
-
-
-app.get('/pag5', function(req, res){
     res.render('pag5');
 });
 

@@ -10,15 +10,23 @@
         <!-- MENU DE ETAPAS -->
         <nav class="col-sm-12 y-9 d-flex justify-content-center">
             <ul class="nav nav-tabs col-sm-6">
-                <li class="nav-item"><p>ETAPA 1</p></li>
-                <li class="nav-item"><p>ETAPA 2</p></li>
+                <li class="nav-item">
+                    <p>ETAPA 1</p>
+                </li>
+                <li class="nav-item">
+                    <p>ETAPA 2</p>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">ETAPA 3</a>
                 </li>
-                <li class="nav-item"><p>ETAPA 4</p></li>
-                <li class="nav-item"><p>ETAPA 5</p></li>
-             </ul>
-         </nav>
+                <li class="nav-item">
+                    <p>ETAPA 4</p>
+                </li>
+                <li class="nav-item">
+                    <p>ETAPA 5</p>
+                </li>
+            </ul>
+        </nav>
 
         <!-- TITULO -->
         <h2 id="title_h2">ETAPA 3: Tabelas para Teste de Mesa</h2>
@@ -27,8 +35,8 @@
         <!-- PARTE CENTRAL -->
         <section class="container">
 
-            
-            <form action="/pag3" method="post">
+
+            <form action="/pag4" method="post">
                 <!-- LINHA COM TABELA DE INSERÇÃO DOS DADOS -->
                 <section class="row">
                     <table class="table">
@@ -41,26 +49,28 @@
                                 <th scope="col">Variável P</th>
                                 <th scope="col">Dado de P (Hexadecimal)</th>
                                 <th>
-                                    <button type="button" class="btn btn-success">+</button>
+                                    <button type="button" class="btn btn-success" onclick="addRow()">+</button>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            
+                        <tbody id="tableBody">
+
                             <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
                             <tr>
                                 <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
                                 <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="numero_linhas">
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="numero_linhas">
                                         <% for (var i = 0; i < prog_o.length; i++) { %>
-                                            <option value="<%= i %>" selected>#<%= i %> <%= prog_o[i] %></option>
+                                        <option value="<%= i %>" selected>#<%= i %> <%= prog_o[i] %></option>
                                         <% } %>
                                     </select>
                                 </td>
-                                
+
                                 <!-- SELEÇÃO DA EQUAÇÃO -->
                                 <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="equacoes">
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="equacoes">
                                         <option value="1" selected>M(c-uso)</option>
                                         <option value="2">M(p-uso)</option>
                                         <option value="3">V(var)</option>
@@ -69,33 +79,34 @@
 
                                 <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
                                 <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="var_o">
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="var_o">
                                         <% for (var i = 0; i < vars_prog_o.length; i++) { %>
-                                            <option value="<%= vars_prog_o[i] %>" selected><%= vars_prog_o[i] %></option>
+                                        <option value="<%= vars_prog_o[i] %>" selected><%= vars_prog_o[i] %></option>
                                         <% } %>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_var_o" placeholder="valor prog O"></td>
-                                
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_o" placeholder="valor prog O"></td>
+
                                 <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
                                 <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example" name="var_p">
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="var_p">
                                         <% for (var i = 0; i < vars_prog_p.length; i++) { %>
-                                            <option value="<%= vars_prog_p[i] %>" selected><%= vars_prog_p[i] %></option>
+                                        <option value="<%= vars_prog_p[i] %>" selected><%= vars_prog_p[i] %></option>
                                         <% } %>
                                     </select>
                                 </td>
-                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_var_p" placeholder="valor prog O"></td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_p" placeholder="valor prog O"></td>
                                 <td>
                                     <button type="button" class="btn btn-danger my-2">X</button>
                                 </td>
                             </tr>
-
-                            
-
                         </tbody>
                     </table>
-                
+
                 </section>
 
 
@@ -113,29 +124,34 @@
                 <h2 class="h4">Fórmulas</h2>
                 <div class="col col-md-3 my-3">
                     <p>M(c-uso) (i)</p>
-                    <img src="img/cuso.png" class="img-fluid"/>
-                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MCUSO">VER MAIS</button>
+                    <img src="img/cuso.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MCUSO">VER MAIS</button>
                 </div>
                 <div class="col col-md-4 my-3">
                     <p>M(p-uso) (ii)</p>
-                    <img src="img/puso.png" class="img-fluid"/>
-                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MPUSO">VER MAIS</button>
+                    <img src="img/puso.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MPUSO">VER MAIS</button>
                 </div>
                 <div class="col col-md-2 my-3">
                     <p>V(var) (iii)</p>
-                    <img src="img/vvar.png" class="img-fluid"/>
-                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#VVAR">VER MAIS</button>
+                    <img src="img/vvar.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#VVAR">VER MAIS</button>
                 </div>
                 <div class="col col-md-3 my-3">
                     <p>AtE (iv)</p>
-                    <img src="img/ate.png" class="img-fluid"/>
-                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#ATE">VER MAIS</button>
+                    <img src="img/ate.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#ATE">VER MAIS</button>
                 </div>
             </section>
         </section>
     </section>
-    
+
     <%- include('./include/modalResult') %>
+    <%- include('./include/scripts') %>
 </body>
 
 
