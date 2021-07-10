@@ -1,7 +1,10 @@
 <script>
+    let id = 0;
     function addRow() {
+        id++;
         const tableBody = document.getElementById("tableBody");
         const newRow = document.createElement("tr");
+        newRow.setAttribute("id", `row${id}`)
         newRow.innerHTML = `
             <td>
                 <select class="form-select form-select-mg my-2" aria - label=".form-select-lg example"
@@ -43,10 +46,17 @@
             <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
                     name="value_var_p" placeholder="valor prog O"></td>
             <td>
-                <button type="button" class="btn btn-danger my-2">X</button>
+                <button type="button" id="close${id}" class="btn btn-danger my-2" onclick="removeRow(this)">X</button>
             </td>
         `
 
         tableBody.appendChild(newRow);
     }
+
+    function removeRow(e) {
+        const id = e.getAttribute("id").substring(5);
+        const tableBody = document.getElementById("tableBody");
+        tableBody.removeChild(document.getElementById(`row${id}`));
+    }
+
 </script>

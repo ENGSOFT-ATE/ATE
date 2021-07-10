@@ -56,7 +56,7 @@
                         <tbody id="tableBody">
 
                             <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
-                            <tr>
+                            <tr id="row0">
                                 <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
                                 <td>
                                     <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
@@ -101,7 +101,7 @@
                                 <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
                                         name="value_var_p" placeholder="valor prog O"></td>
                                 <td>
-                                    <button type="button" class="btn btn-danger my-2">X</button>
+                                    <button type="button" id="close0" class="btn btn-danger my-2" onclick="removeRow(this)">X</button>
                                 </td>
                             </tr>
                         </tbody>
