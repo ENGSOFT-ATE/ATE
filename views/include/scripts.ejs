@@ -9,6 +9,7 @@
             <td>
                 <select class="form-select form-select-mg my-2" aria - label=".form-select-lg example"
             name = "numero_linhas">
+                    <% let prog_o = program.PROG_O.split('\n') %>
                     <% for (var i = 0; i < prog_o.length; i++) { %>
                     <option value="<%= i %>" selected>#<%= i %> <%= prog_o[i] %></option>
                     <% } %>
@@ -27,6 +28,7 @@
             <td>
                 <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
                     name="var_o">
+                    <% let vars_prog_o = program.VARS_PROG_O.split(';') %>
                     <% for (var i = 0; i < vars_prog_o.length; i++) { %>
                     <option value="<%= vars_prog_o[i] %>" selected><%= vars_prog_o[i] %></option>
                     <% } %>
@@ -38,6 +40,7 @@
             <td>
                 <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
                     name="var_p">
+                    <% let vars_prog_p = program.VARS_PROG_P.split(';') %>
                     <% for (var i = 0; i < vars_prog_p.length; i++) { %>
                     <option value="<%= vars_prog_p[i] %>" selected><%= vars_prog_p[i] %></option>
                     <% } %>

@@ -1,0 +1,122 @@
+<%- include('./include/header') %>
+
+<!--|||||||||||||||||||||||||||||||||||||| CONTEUDO ||||||||||||||||||||||||||||||||||||||-->
+
+<body>
+    <%- include('./include/navbar') %>
+
+    <section class="middle">
+
+        <!-- TITULO -->
+        <h2 id="title_h2">Assinatura do Teste Estrutural AtE</h2>
+        <hr id="line" />
+        <a href="/conf" type="button" class="btn-lg btn-success mb-5">REALIZAR TESTE</a>
+
+        <!-- PARTE CENTRAL -->
+        <section class="container w-75">
+
+            <!-- RESUMO -->
+            <section class="row">
+                <h3 class="my-2"> O que é?</h3>
+                <p class="m-2" style="text-align: justify;">
+                    O teste estrutural possibilita garantir a qualidade do software pela análise do código fonte. Nesse 
+                    sentido, este trabalho apresenta um novo método de teste estrutural com a aplicação das 
+                    técnicas teste fluxo de dados e análise de mutantes. Trata-se de um modelo aritmético intitulado 
+                    Assinatura do Teste Estrutural (AtE), que recebe parâmetros como variáveis, operandos, 
+                    operadores e comandos, determina uma métrica com objetivos de detectar possíveis erros 
+                    semânticos e lógicos entre as definições de variáveis e seus usos, como também, reduzir os 
+                    caminhos de testes no grafo de dados e os mutantes gerados. O resultado mostrou-se favorável 
+                    à continuação da pesquisa com outros ensaios e direcionamento para construção de ferramenta 
+                    apropriada. 
+                </p>
+            </section>
+            
+            <!-- PDF -->
+            <section class="row px-2 py-4">
+                <h3 class="my-2">Artigo</h3>
+                <embed src= "ate.pdf" width= "100%" height= "375">
+            </section>
+
+            <!-- FORMULAS -->
+            <section class="row my-5">
+                <h2 class="h4">Fórmulas</h2>
+                <div class="col col-md-6 my-3">
+                    <p>M(c-uso) (i)</p>
+                    <div style="min-height:110px"><img src="img/cuso.png" class="img-fluid" /></div>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MCUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-6 my-3">
+                    <p>M(p-uso) (ii)</p>
+                    <div style="min-height:110px"><img src="img/puso.png" class="img-fluid" /></div>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MPUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-6 my-3">
+                    <p>V(var) (iii)</p>
+                    <div style="min-height:110px"><img src="img/vvar.png" class="img-fluid" /></div>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#VVAR">VER MAIS</button>
+                </div>
+                <div class="col col-md-6 my-3">
+                    <p>AtE (iv)</p>
+                    <div style="min-height:110px"><img src="img/ate.png" class="img-fluid" /></div>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#ATE">VER MAIS</button>
+                </div>
+            </section>
+
+            <!-- AUTORIA -->
+            <section class="row">
+                <h3>Autoria</h3>
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="img/sf.gif" class="img-fluid rounded-start py-3" alt="autor">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body my-3">
+                                <h5 class="card-title">Sergio Fred Ribeiro Andrade</h5>
+                                <p class="card-text" style="font-size: 12px;text-align:justify">Doutor em Ciências Ambientais pela UESC, mestre em Sistemas e Computação pela UNIFACS, especialista em Informática Avançada pela UFSCar, bacharel em Sistemas de Informação pela Universidade de Santo Amaro e em Administração pela Universidade Estadual de Santa Cruz. É professor adjunto do Departamento de Ciências Exatas e Tecnológicas da UESC, tem experiência na área de computação, em análise e sistemas de informações, banco de dados corporativo, data warehousing, data mining, engenharia de software e geoinformática com aplicação de modelos multivariados, redes neurais e máquinas de vetores.</p>
+                                <p class="card-text"><small class="text-muted">
+                                    <a class="link-primary" href="http://lattes.cnpq.br/2756638501081370" title="Currículo Lattes">Acessar Currículo Lattes</a>
+                                </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- COLABORADORES -->
+            <section class="row py-5">
+                <h3 class="my-2">Colaboradores para desenvolvimento da ferramenta</h3>
+                <h5 class="title-h3 my-3">Alunos de Ciência da Computação</h5>
+                <table class="table mx-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Matrícula</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ariadne Nascimento Matos</td><td></td></tr>
+                        <tr><td>Diego Marcelino Santos Silva</td><td></td></tr>
+                        <tr><td>Eduardo Matheus de Menezes Souto</td><td></td></tr>
+                        <tr><td>Ellison William Medrado Guimarães</td><td>201620215</td></tr>
+                        <tr><td>Joao Henrique dos Santos Queiroz</td><td></td></tr>
+                        <tr><td>Maria Luiza Teixeira Santos</td><td></td></tr>
+                        <tr><td>Nassim Maron Rihan</td><td></td></tr>
+                        <tr><td>Valber Francisco dos Santos</td><td></td></tr>
+                                                
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        
+    </section>
+
+    <%- include('./include/modalResult') %>
+</body>
+
+
+<%- include('./include/footer') %>

@@ -14,8 +14,7 @@
                     <a class="nav-link active" aria-current="page" href="#">ETAPA 2</a>
                 </li>
                 <li class="nav-item"><p>ETAPA 3</p></li>
-                <li class="nav-item"><p>ETAPA 4</p></li>
-                <li class="nav-item"><p>ETAPA 5</p></li>
+                <li class="nav-item"><p>RESULTADO</p></li>
              </ul>
          </nav>
 
@@ -25,21 +24,25 @@
 
         <!-- PARTE CENTRAL -->
         <section class="container">
-            <form action="/pag3" method="post">
+            <form action="/tabletest" method="post">
 
                 <!-- VALORES CasoTeste PARA O e P -->
                 <section class="row">
                     <div class="form-group col-sm-6 ">
                         <label for="message">Preencha o caso de teste do Programa O</label>
+                        <% let vars_prog_o = program.VARS_PROG_O.split(';') %>
                         <% for (var i = 0; i < vars_prog_o.length; i++) { %>
-                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_o" placeholder="<%= vars_prog_o[i] %>">
+                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_o" placeholder="<%= vars_prog_o[i] %>"
+                            value="<%= program.VALUE_VARS_PROG_O.length > 0 ? program.VALUE_VARS_PROG_O[i] : null %>">
                         <% } %>
                         <div id="emailHelp" class="form-text">Se array, separe por vírgula. Ex: 1, 2, 3, 4</div> 
                     </div>
                     <div class="form-group col-sm-6">
                         <label for="message">Preencha o caso de teste do Programa P</label>
+                        <% let vars_prog_p = program.VARS_PROG_P.split(';') %>
                         <% for (var i = 0; i < vars_prog_p.length; i++) { %>
-                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_p" placeholder="<%= vars_prog_p[i] %>">
+                            <input type="text" class="form-control my-2" id="exampleFormControlInput1" name="value_vars_prog_p" placeholder="<%= vars_prog_p[i] %>"
+                            value="<%= program.VALUE_VARS_PROG_P.length > 0 ? program.VALUE_VARS_PROG_P[i] : null %>">
                         <% } %>
                         <div id="emailHelp" class="form-text">Se array, separe por vírgula. Ex: 1, 2, 3, 4</div>
                     </div>
@@ -47,7 +50,7 @@
 
                 <!-- BOTÕES VOLTAR~PROXIMO -->
                 <section class="d-flex justify-content-between p-3">
-                    <a href="/pag1" type="submit" class="btn-lg btn-warning">Voltar</a>
+                    <a href="/conf" type="submit" class="btn-lg btn-warning">Voltar</a>
                     <button type="submit" class="btn-lg btn-success">Próximo</a>
                 </section>
 

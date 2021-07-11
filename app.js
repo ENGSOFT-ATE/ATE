@@ -1,4 +1,5 @@
 const express = require('express');
+const { request } = require('http');
 const app = express();
 const path = require('path');
 
@@ -9,66 +10,130 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // VARIÁVEIS GLOBAIS (SIMULANDO ARMAZENAMENTO)
-let PROG_O;
-let PROG_P;
-let VARS_PROG_O;
-let VARS_PROG_P;
-let VALUE_VARS_PROG_P;
-let VALUE_VARS_PROG_O;
-let SUBCAMINHO_O;
-let SUBCAMINHO_P;
-let SUBCAMINHO_O_NOT;
-let SUBCAMINHO_P_NOT;
+var PROGRAM = {}
+PROGRAM.PROG_O = "";            // Programa O
+PROGRAM.PROG_P = "";            // Programa P
+PROGRAM.VARS_PROG_O = "";       // Variáveis de O
+PROGRAM.VARS_PROG_P = "";       // Variáveis de P
+PROGRAM.SUBCAMINHO_O = "";      // Subcaminho de O
+PROGRAM.SUBCAMINHO_P = "";      // Subcaminho de P
+PROGRAM.SUBCAMINHO_O_NOT = "";  // Subcaminho de O [EM NOTAÇÃO: (n, (m, k), bool, var) ] 
+PROGRAM.SUBCAMINHO_P_NOT = "";  // Subcaminho de P [EM NOTAÇÃO: (n, (m, k), bool, var) ] 
+
+PROGRAM.VALUE_VARS_PROG_P = []; // Valores Teste de Mesa de O
+PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
+
+PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
 
 
-app.get(['/', '/pag1'], function(req, res){
-    res.render('pag1');
+
+
+app.get('/', function(req, res){
+    res.render('index');
 });
 
-app.post('/pag2', function(req, res){
+
+
+app.get('/conf', function(req, res){
+    console.log("PASSOU NO GET DE PAG1!");
+
+     // LIMPANDO VETOR DE PAG2 (CASO CLIQUE NO BOTÃO DE VOLTAR)
+     PROGRAM.VALUE_VARS_PROG_O = [];
+     PROGRAM.VALUE_VARS_PROG_P = [];
+
+    res.render('conf', {
+        program: PROGRAM,
+    });
+});
+
+
+
+
+app.post('/testcase', function(req, res){
     // PROGRAMAS O E P
-    let prog_o = req.body.prog_o.split("\n");
-    let prog_p = req.body.prog_p.split("\n");
+    let prog_o = req.body.prog_o;
+    let prog_p = req.body.prog_p;
+
     // VARS PROG O E PROG P
-    let vars_prog_o = req.body.vars_prog_o.split(';');
-    let vars_prog_p = req.body.vars_prog_p.split(';');
+    let vars_prog_o = req.body.vars_prog_o;
+    let vars_prog_p = req.body.vars_prog_p;
+
+    // SUBCAMINHOS e SUBCAMINHOS COM NOTAÇÃO de O E P
+    let subcaminho_o = req.body.subcaminho_o;
+    let subcaminho_o_not = req.body.subcaminho_o_not;
+    let subcaminho_p = req.body.subcaminho_p;
+    let subcaminho_p_not = req.body.subcaminho_p_not;
 
     // SIMULANDO ARMAZENAMENTO
-    PROG_O = prog_o;
-    PROG_P = prog_p;
-    VARS_PROG_O = vars_prog_o;
-    VARS_PROG_P = vars_prog_p;
+    PROGRAM.PROG_O = prog_o;
+    PROGRAM.PROG_P = prog_p;
+    PROGRAM.VARS_PROG_O = vars_prog_o;
+    PROGRAM.VARS_PROG_P = vars_prog_p;
+    PROGRAM.SUBCAMINHO_O = subcaminho_o;
+    PROGRAM.SUBCAMINHO_P = subcaminho_p;
+    PROGRAM.SUBCAMINHO_O_NOT = subcaminho_o_not;
+    PROGRAM.SUBCAMINHO_P_NOT = subcaminho_p_not;
 
-    //ENVIANDO PARA O PASSO 2 AS VARIÁVEIS DO PROGRAMA
-    res.render('pag2', {
-        vars_prog_o: vars_prog_o,
-        vars_prog_p: vars_prog_p
+    // IMPRIMINDO
+    console.log(prog_o);
+    console.log(prog_p);
+    console.log(vars_prog_o);
+    console.log(vars_prog_p);
+    console.log(subcaminho_o);
+    console.log(subcaminho_p);
+    console.log(subcaminho_o_not);
+    console.log(subcaminho_p_not);
+
+    res.render('testcase', {
+        program: PROGRAM,
+    });
+});
+
+app.get('/testcase', function(req, res){
+    console.log("PASSOU NO GET DE CASO DE TESTE!");
+
+    // LIMPANDO A TABELA TM (CASO CLIQUE NO BOTÃO DE VOLTAR NA PAG3)
+    PROGRAM.TESTE_TM = []; 
+    res.render('testcase', {
+        program: PROGRAM,
     });
 });
 
 
-app.post('/pag3', function(req, res){
+
+
+app.post('/tabletest', function(req, res){
     // VALORES DAS VARIÁVEIS DE O E P
-    let value_vars_prog_o = req.body.value_vars_prog_o;
-    let value_vars_prog_p = req.body.value_vars_prog_p;
+    let value_vars_prog_o = req.body.value_vars_prog_o; // ARRAY
+    let value_vars_prog_p = req.body.value_vars_prog_p; // ARRAY
 
     // SIMULANDO ARMAZENAMENTO - LISTA COM VALORES INICIALIZADOS (CASO DE TESTE)
-    VALUE_VARS_PROG_P = value_vars_prog_o;
-    VALUE_VARS_PROG_O = value_vars_prog_p;
+    PROGRAM.VALUE_VARS_PROG_O = value_vars_prog_o;
+    PROGRAM.VALUE_VARS_PROG_P = value_vars_prog_p;
 
-    // RENDERIZANDO PÁGINA 03: É necessário enviar para a view: Linhas do código e variáveis do código.
-    res.render('pag3', {
-        prog_o: PROG_O,
-        prog_p: PROG_P,
-        vars_prog_o: VARS_PROG_O,
-        vars_prog_p: VARS_PROG_P
+    // IMPRIMINDO
+    console.log(value_vars_prog_o);
+    console.log(value_vars_prog_p);
+
+    res.render('tabletest', {
+        program: PROGRAM,
+    });
+});
+
+app.get('/tabletest', function(req, res){
+    console.log("PASSOU NO GET DE TABLETEST!");
+    res.render('tabletest', {
+        program: PROGRAM,
     });
 });
 
 
-app.post('/pag4', function(req, res){
-    // INFORMAÇÕES VINDAS DO PASSO 3 (ARRAYS)
+
+
+app.post('/result', function(req, res){
+    // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
     let numero_linhas = req.body.numero_linhas;
     let equacoes = req.body.equacoes;
     let var_o = req.body.var_o;
@@ -76,35 +141,31 @@ app.post('/pag4', function(req, res){
     let value_var_o = req.body.value_var_o;
     let value_var_p = req.body.value_var_p;
 
+    // ARMAZENANDO EM TESTE_TM (MATRIZ)
+    for(var i = 0; i < numero_linhas.length; i++) {
+        PROGRAM.TESTE_TM.push([numero_linhas[i], 
+            equacoes[i], 
+            var_o[i], 
+            value_var_o[i], 
+            var_p[i], 
+            value_var_p[i]]);
+    }
+
     // IMPRIMINDO AS LISTAS
-    console.log(numero_linhas);
-    console.log(equacoes);
-    console.log(var_o);
-    console.log(var_p);
-    console.log(value_var_o);
-    console.log(value_var_p);
+    console.log(PROGRAM.TESTE_TM);
 
-    // RENDERIZANDO PÁGINA 4: NADA É NECESSÁRIO
-    res.render('pag4');
+    /**************************************************************************************************** 
+     NESSE MOMENTO (ANTES DE RENDERIZAR RESULT) ARMAZENA-SE TODOS OS DADOS DE PROGRAM EM BANCO DE DADOS.
+
+     Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
+     essas informações da melhor maneira a serem inseridas no banco. 
+    ****************************************************************************************************/
+
+    res.render('result', {
+        program: PROGRAM,
+    });
 });
 
-
-app.post('/pag5', function(req, res){
-    // SUBCAMINHOS e SUCAMINHOS COM NOTAÇÃO de O E P
-    let subcaminho_o = req.body.subcaminho_o;
-    let subcaminho_o_not = req.body.subcaminho_o_not;
-    let subcaminho_p = req.body.subcaminho_p;
-    let subcaminho_p_not = req.body.subcaminho_p_not;
-
-    // SIMULANDO ARMAZENAMENTO
-    SUBCAMINHO_O = subcaminho_o;
-    SUBCAMINHO_P = subcaminho_p;
-    SUBCAMINHO_O_NOT = subcaminho_o_not;
-    SUBCAMINHO_P_NOT = subcaminho_p_not;
-    
-    // RENDERIZAR RESULTADOS NA PÁGINA 5
-    res.render('pag5');
-});
 
 
 app.listen(3000);
