@@ -1,7 +1,11 @@
 const express = require('express');
 const { request } = require('http');
+const mysql = require('mysql')
 const app = express();
 const path = require('path');
+
+const dbConn = require('./bin/db')
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -49,11 +53,47 @@ app.get('/conf', function(req, res){
 });
 
 
+app.post('/programaO', function(req,res){
+
+    //PROGRAMA O
+
+    const {id_o, dt_codificacao,cod_o} = req.body;
+
+    dbConn.query('INSERT INTO programa_o SET ?',{id_o:id_o,dt_codificacao:dt_codificacao,cod_o:cod_o}, (error,results) =>{
+        if (error){
+            console.log(error);
+        }else{
+            console.log(results);
+            return res.render('testcase',{
+                program: PROGRAM,
+            });
+        }
+    })
+});
+
+
+app.post('/programaP', function(req,res){
+
+    //PROGRAMA P
+
+    const {id_o, dt_codificacao,cod_o} = req.body;
+
+    dbConn.query('INSERT INTO programa_p SET ?',{id_o:id_o,dt_codificacao:dt_codificacao,cod_o:cod_o}, (error,results) =>{
+        if (error){
+            console.log(error);
+        }else{
+            console.log(results);
+            return res.render('testcase',{
+                program: PROGRAM,
+            });
+        }
+    })
+});
 
 
 app.post('/testcase', function(req, res){
     // PROGRAMAS O E P
-    let prog_o = req.body.prog_o;
+    /*let prog_o = req.body.prog_o;
     let prog_p = req.body.prog_p;
 
     // VARS PROG O E PROG P
@@ -64,7 +104,9 @@ app.post('/testcase', function(req, res){
     let subcaminho_o = req.body.subcaminho_o;
     let subcaminho_o_not = req.body.subcaminho_o_not;
     let subcaminho_p = req.body.subcaminho_p;
-    let subcaminho_p_not = req.body.subcaminho_p_not;
+    let subcaminho_p_not = req.body.subcaminho_p_not;*/
+
+    let {prog_o, prog_p,vars_prog_o,vars_prog_p,subcaminho_o,subcaminho_o_not,subcaminho_p,subcaminho_p_not} = req.body;
 
     // SIMULANDO ARMAZENAMENTO
     PROGRAM.PROG_O = prog_o;
@@ -134,13 +176,13 @@ app.get('/tabletest', function(req, res){
 
 app.post('/result', function(req, res){
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
-    let numero_linhas = req.body.numero_linhas;
+    /*let numero_linhas = req.body.numero_linhas;
     let equacoes = req.body.equacoes;
     let var_o = req.body.var_o;
     let var_p = req.body.var_p;
     let value_var_o = req.body.value_var_o;
-    let value_var_p = req.body.value_var_p;
-
+    let value_var_p = req.body.value_var_p;*/
+    let {numero_linhas, equacoes,var_o,var_p,value_var_o,value_var_p} = req.body;
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
     for(var i = 0; i < numero_linhas.length; i++) {
         PROGRAM.TESTE_TM.push([numero_linhas[i], 
