@@ -12,8 +12,10 @@ CREATE DATABASE metrica_ate;
 CREATE TABLE IF NOT EXISTS `caminho` (
   `id_caminho` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(20) DEFAULT NULL,
-  `def_uso` varchar(20) DEFAULT NULL,
-  `subcaminho` varchar(50) DEFAULT NULL,
+  `def_usoO` varchar(20) DEFAULT NULL,
+  `def_usoP` varchar(20) DEFAULT NULL,
+  `subcaminhoO` varchar(50) DEFAULT NULL,
+  `subcaminhoP` varchar(50) DEFAULT NULL,
   `idp` int(11) DEFAULT NULL,
   `ido` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_caminho`)
@@ -23,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `caminho` (
 -- Extraindo dados da tabela `caminho`
 --
 
-INSERT INTO `caminho` (`id_caminho`, `descricao`, `def_uso`, `subcaminho`, `idp`, `ido`) VALUES
-(1, 'Busca binária', '(1(7,8)V,v)', '1,2,3,4,5,7,8', 1, 1);
+INSERT INTO `caminho` (`id_caminho`, `descricao`, `def_uso`, `subcaminhoO`,`subcaminhoP`, `idp`, `ido`) VALUES
+(1, 'Busca binária', '(1(7,8)V,v)', '1,2,3,4,5,7,8','1,2,3,4,5,7,8', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -96,9 +98,9 @@ CREATE TABLE IF NOT EXISTS `m_p_uso` (
 
 
 CREATE TABLE IF NOT EXISTS `programa_o` (
-  `id_o` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_codificacao` varchar(20) DEFAULT NULL,
-  `codigo_o` text,
+  `id_o` int(11) NOT NULL AUTO_INCREMENT,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ,
+  /*`dt_codificacao` varchar(20) DEFAULT NULL,*/
+  `codigo_o` text,''
   PRIMARY KEY (`id_o`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -109,7 +111,7 @@ INSERT INTO `programa_o` (`id_o`, `dt_codificacao`, `codigo_o`) VALUES
 
 CREATE TABLE IF NOT EXISTS `programa_p` (
   `id_p` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_implementacao` varchar(20) DEFAULT NULL,
+  /*`dt_implementacao` varchar(20) DEFAULT NULL,*/
   `codigo_p` text,
   PRIMARY KEY (`id_p`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -134,6 +136,8 @@ CREATE TABLE IF NOT EXISTS `teste_mesa` (
 
 INSERT INTO `teste_mesa` (`id_testemesa`, `dt_testemesa`, `iddados`, `id_ct`) VALUES
 (1, '22/06/2021', 1, 1);
+
+
 CREATE TABLE IF NOT EXISTS `valores_ct` (
   `id_dadosct` int(11) NOT NULL AUTO_INCREMENT,
   `parametro` varchar(20) DEFAULT NULL,

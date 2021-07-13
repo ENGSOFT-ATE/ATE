@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // VARIÁVEIS GLOBAIS (SIMULANDO ARMAZENAMENTO)
-var PROGRAM = {}
+let PROGRAM = {}
 PROGRAM.PROG_O = "";            // Programa O
 PROGRAM.PROG_P = "";            // Programa P
 PROGRAM.VARS_PROG_O = "";       // Variáveis de O
@@ -57,9 +57,9 @@ app.post('/programaO', function(req,res){
 
     //PROGRAMA O
 
-    const {id_o, dt_codificacao,cod_o} = req.body;
+    const {cod_o} = req.body;
 
-    dbConn.query('INSERT INTO programa_o SET ?',{id_o:id_o,dt_codificacao:dt_codificacao,cod_o:cod_o}, (error,results) =>{
+    dbConn.query('INSERT INTO programa_o SET ?',{cod_o:cod_o}, (error,results) =>{
         if (error){
             console.log(error);
         }else{
@@ -76,9 +76,9 @@ app.post('/programaP', function(req,res){
 
     //PROGRAMA P
 
-    const {id_o, dt_codificacao,cod_o} = req.body;
+    const {cod_p} = req.body;
 
-    dbConn.query('INSERT INTO programa_p SET ?',{id_o:id_o,dt_codificacao:dt_codificacao,cod_o:cod_o}, (error,results) =>{
+    dbConn.query('INSERT INTO programa_p SET ?',{cod_p:cod_p}, (error,results) =>{
         if (error){
             console.log(error);
         }else{
@@ -91,7 +91,37 @@ app.post('/programaP', function(req,res){
 });
 
 
-app.post('/testcase', function(req, res){
+app.post('/variaveis', function(req,res){
+
+    let{variavel_o,variavel_p} = req.body;
+    dbConn.query('INSERT INTO dados_tm SET ?',{variavel_o:variavel_o,variavel_p:variavel_p},(error, results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            console.log(results);
+            return res.render('testcase',{
+                program: PROGRAM,
+            });
+        }
+    })
+});
+
+app.post('/subcaminho',function(req,res){
+
+    let{subcaminhoP, subcaminhoO,defUsoO,defUsoP} = req.body;
+    dbConn.query('INSERT INTO caminho SET ?',{subcaminhoP:subcaminhoP,subcaminhoO:subcaminhoO,defUsoO:defUsoO,defUsoP:defUsoP},(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            console.log(results);
+            return res.render('testcase',{
+                program: PROGRAM,
+            });
+        }
+    })
+});
+
+/*app.post('/testcase', function(req, res){
     // PROGRAMAS O E P
     /*let prog_o = req.body.prog_o;
     let prog_p = req.body.prog_p;
@@ -104,7 +134,7 @@ app.post('/testcase', function(req, res){
     let subcaminho_o = req.body.subcaminho_o;
     let subcaminho_o_not = req.body.subcaminho_o_not;
     let subcaminho_p = req.body.subcaminho_p;
-    let subcaminho_p_not = req.body.subcaminho_p_not;*/
+    let subcaminho_p_not = req.body.subcaminho_p_not;
 
     let {prog_o, prog_p,vars_prog_o,vars_prog_p,subcaminho_o,subcaminho_o_not,subcaminho_p,subcaminho_p_not} = req.body;
 
@@ -131,7 +161,7 @@ app.post('/testcase', function(req, res){
     res.render('testcase', {
         program: PROGRAM,
     });
-});
+});*/
 
 app.get('/testcase', function(req, res){
     console.log("PASSOU NO GET DE CASO DE TESTE!");
