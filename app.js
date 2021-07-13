@@ -1,9 +1,9 @@
 const express = require('express');
 const { request } = require('http');
-const mysql = require('mysql')
+const mysql = require('mysql');
+const { resolve } = require('path');
 const app = express();
 const path = require('path');
-
 const dbConn = require('./bin/db')
 
 
@@ -31,8 +31,15 @@ PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
 
 PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
 
-
-
+function calc_p (results){
+    let total = 0
+    for (let i = 0; i < results.length; i++) {
+        // console.log(parseInt(results[i].dado_hexa_o, 16))
+        total += parseInt(results[i].dado_hexa_o, 16);
+    }
+    total.toString(16);
+    console.log(total);
+}
 
 app.get('/', function(req, res){
     res.render('index');
@@ -90,6 +97,24 @@ app.post('/programaP', function(req,res){
     })
 });
 
+app.get('/metodop-uso', function(req, res){
+    // const {id_programa} = req.body;
+    id_programa = 1
+
+    dbConn.query("SELECT * FROM dados_tm WHERE num_equacao = '3' and idpuso = ?", {idpuso: id_programa}, (error, results) => {
+        if (error){
+            console.log(error);
+        }
+        else {
+            calc_p(results);
+            // console.log(results);
+            // console.log(results[1].linha);
+            // return res.json(results);
+            return res.json(calc_p(results));
+            // return results;
+        }
+    })
+})
 
 app.post('/variaveis', function(req,res){
 
