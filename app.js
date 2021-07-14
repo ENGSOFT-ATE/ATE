@@ -106,6 +106,24 @@ app.get('/testcase', function(req, res){
 });
 
 
+app.get('/metodop-uso', function(req, res){
+    // const {id_programa} = req.body;
+    id_programa = 1
+
+    dbConn.query("SELECT * FROM dados_tm WHERE num_equacao = '3' and idpuso = ?", {idpuso: id_programa}, (error, results) => {
+        if (error){
+            console.log(error);
+        }
+        else {
+            calc_p(results);
+            // console.log(results);
+            // console.log(results[1].linha);
+            // return res.json(results);
+            return res.json(calc_p(results));
+            // return results;
+        }
+    })
+})
 
 
 app.post('/tabletest', function(req, res){
@@ -152,7 +170,6 @@ app.post('/result', function(req, res){
                 
             });
         }
-        console.log(results)
     })
 
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
