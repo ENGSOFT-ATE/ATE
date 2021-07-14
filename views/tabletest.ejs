@@ -76,30 +76,17 @@
                                 </td>
 
                                 <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
-                                <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
-                                        name="var_o">
-                                        <% let vars_prog_o = program.VARS_PROG_O.split(';') %>
-                                        <% for (var i = 0; i < vars_prog_o.length; i++) { %>
-                                        <option value="<%= vars_prog_o[i] %>"><%= vars_prog_o[i] %></option>
-                                        <% } %>
-                                    </select>
-                                </td>
                                 <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
-                                        name="value_var_o" placeholder="valor prog O"></td>
+                                    name="var_o" placeholder="Variável O"></td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_o" placeholder="Valor O"></td>
 
                                 <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
-                                <td>
-                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
-                                        name="var_p">
-                                        <% let vars_prog_p = program.VARS_PROG_P.split(';') %>
-                                        <% for (var i = 0; i < vars_prog_p.length; i++) { %>
-                                        <option value="<%= vars_prog_p[i] %>"><%= vars_prog_p[i] %></option>
-                                        <% } %>
-                                    </select>
-                                </td>
                                 <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
-                                        name="value_var_p" placeholder="valor prog P"></td>
+                                    name="var_p" placeholder="Variável P"></td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_p" placeholder="Valor P"></td>
+
                                 <td>
                                     <button type="button" id="close0" class="btn btn-danger my-2" onclick="removeRow(this)">X</button>
                                 </td>

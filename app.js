@@ -31,6 +31,7 @@ PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
 
 PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
 
+
 function calc_p (results){
     let total = 0
     for (let i = 0; i < results.length; i++) {
@@ -40,6 +41,7 @@ function calc_p (results){
     total.toString(16);
     console.log(total);
 }
+
 
 app.get('/', function(req, res){
     res.render('index');
