@@ -60,106 +60,13 @@ app.get('/conf', function(req, res){
 });
 
 
-app.post('/programaO', function(req,res){
-
-    //PROGRAMA O
-
-    const {cod_o} = req.body;
-
-    dbConn.query('INSERT INTO programa_o SET ?',{cod_o:cod_o}, (error,results) =>{
-        if (error){
-            console.log(error);
-        }else{
-            console.log(results);
-            return res.render('testcase',{
-                program: PROGRAM,
-            });
-        }
-    })
-});
 
 
-app.post('/programaP', function(req,res){
-
-    //PROGRAMA P
-
-    const {cod_p} = req.body;
-
-    dbConn.query('INSERT INTO programa_p SET ?',{cod_p:cod_p}, (error,results) =>{
-        if (error){
-            console.log(error);
-        }else{
-            console.log(results);
-            return res.render('testcase',{
-                program: PROGRAM,
-            });
-        }
-    })
-});
-
-app.get('/metodop-uso', function(req, res){
-    // const {id_programa} = req.body;
-    id_programa = 1
-
-    dbConn.query("SELECT * FROM dados_tm WHERE num_equacao = '3' and idpuso = ?", {idpuso: id_programa}, (error, results) => {
-        if (error){
-            console.log(error);
-        }
-        else {
-            calc_p(results);
-            // console.log(results);
-            // console.log(results[1].linha);
-            // return res.json(results);
-            return res.json(calc_p(results));
-            // return results;
-        }
-    })
-})
-
-app.post('/variaveis', function(req,res){
-
-    let{variavel_o,variavel_p} = req.body;
-    dbConn.query('INSERT INTO dados_tm SET ?',{variavel_o:variavel_o,variavel_p:variavel_p},(error, results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            console.log(results);
-            return res.render('testcase',{
-                program: PROGRAM,
-            });
-        }
-    })
-});
-
-app.post('/subcaminho',function(req,res){
-
-    let{subcaminhoP, subcaminhoO,defUsoO,defUsoP} = req.body;
-    dbConn.query('INSERT INTO caminho SET ?',{subcaminhoP:subcaminhoP,subcaminhoO:subcaminhoO,defUsoO:defUsoO,defUsoP:defUsoP},(error,results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            console.log(results);
-            return res.render('testcase',{
-                program: PROGRAM,
-            });
-        }
-    })
-});
-
-/*app.post('/testcase', function(req, res){
+app.post('/testcase', function(req, res){
     // PROGRAMAS O E P
-    /*let prog_o = req.body.prog_o;
-    let prog_p = req.body.prog_p;
-
     // VARS PROG O E PROG P
-    let vars_prog_o = req.body.vars_prog_o;
-    let vars_prog_p = req.body.vars_prog_p;
-
     // SUBCAMINHOS e SUBCAMINHOS COM NOTAÇÃO de O E P
-    let subcaminho_o = req.body.subcaminho_o;
-    let subcaminho_o_not = req.body.subcaminho_o_not;
-    let subcaminho_p = req.body.subcaminho_p;
-    let subcaminho_p_not = req.body.subcaminho_p_not;
+ 
 
     let {prog_o, prog_p,vars_prog_o,vars_prog_p,subcaminho_o,subcaminho_o_not,subcaminho_p,subcaminho_p_not} = req.body;
 
@@ -186,7 +93,7 @@ app.post('/subcaminho',function(req,res){
     res.render('testcase', {
         program: PROGRAM,
     });
-});*/
+});
 
 app.get('/testcase', function(req, res){
     console.log("PASSOU NO GET DE CASO DE TESTE!");
@@ -231,25 +138,35 @@ app.get('/tabletest', function(req, res){
 
 app.post('/result', function(req, res){
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
-    /*let numero_linhas = req.body.numero_linhas;
-    let equacoes = req.body.equacoes;
-    let var_o = req.body.var_o;
-    let var_p = req.body.var_p;
-    let value_var_o = req.body.value_var_o;
-    let value_var_p = req.body.value_var_p;*/
-    let {numero_linhas, equacoes,var_o,var_p,value_var_o,value_var_p} = req.body;
+
+    let {linha, num_equacao,variavel_o,variavel_p,dado_hexa_p,dado_hexa_o} = req.body;
+
+    dbConn.query('INSERT INTO dados_tm SET ?', {linha:linha, num_equacao: num_equacao, variavel_o:variavel_o,
+                    variavel_p:variavel_p,dado_hexa_o:dado_hexa_o,dado_hexa_p:dado_hexa_p},(error,results)=>{
+        if(error){
+            console.log(error);
+        }else{
+            console.log(results);
+            return res.render('result',{  
+                program: PROGRAM,
+                
+            });
+        }
+        console.log(results)
+    })
+
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
-    for(var i = 0; i < numero_linhas.length; i++) {
-        PROGRAM.TESTE_TM.push([numero_linhas[i], 
-            equacoes[i], 
-            var_o[i], 
-            value_var_o[i], 
-            var_p[i], 
-            value_var_p[i]]);
-    }
+    /*for(var i = 0; i < linha.length; i++) {
+        PROGRAM.TESTE_TM.push([linha[i], 
+            num_equacao[i], 
+            variavel_o[i], 
+            dado_hexa_o[i], 
+            variavel_p[i], 
+            dado_hexa_p[i]]);
+    }*/
 
     // IMPRIMINDO AS LISTAS
-    console.log(PROGRAM.TESTE_TM);
+    //console.log(PROGRAM.TESTE_TM);
 
     /**************************************************************************************************** 
      NESSE MOMENTO (ANTES DE RENDERIZAR RESULT) ARMAZENA-SE TODOS OS DADOS DE PROGRAM EM BANCO DE DADOS.
@@ -257,10 +174,6 @@ app.post('/result', function(req, res){
      Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
      essas informações da melhor maneira a serem inseridas no banco. 
     ****************************************************************************************************/
-
-    res.render('result', {
-        program: PROGRAM,
-    });
 });
 
 
