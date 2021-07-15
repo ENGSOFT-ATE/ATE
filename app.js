@@ -33,13 +33,22 @@ PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_eq
 
 
 function calc_p (results){
-    let total = 0
+    let line_o = {}
+    let line_p = {}
+    let total_o  = 0
+    let total_p  = 0
     for (let i = 0; i < results.length; i++) {
-        // console.log(parseInt(results[i].dado_hexa_o, 16))
-        total += parseInt(results[i].dado_hexa_o, 16);
+        line_o[results[i].linha] = isNaN(parseInt(line_o[results[i].linha])) ? 0 : line_o[results[i].linha];
+        line_p[results[i].linha] = isNaN(parseInt(line_p[results[i].linha])) ? 0 : line_p[results[i].linha];
+        if (results[i].equacao === '2'){
+            line_o[results[i].linha] += parseInt(results[i].value_var_o, 16);
+            line_p[results[i].linha] += parseInt(results[i].value_var_p, 16);
+            total_o += parseInt(results[i].value_var_o, 16);
+            total_p += parseInt(results[i].value_var_p, 16);
+        }
     }
-    total.toString(16);
-    console.log(total);
+    return [line_o, line_p,[[total_o.toString(16)], [total_p.toString(16)]]]
+
 }
 
 
@@ -158,31 +167,64 @@ app.get('/tabletest', function(req, res){
 
 app.post('/result', function(req, res){
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
+    PROGRAM.TESTE_TM = []
 
-    let {linha, num_equacao,variavel_o,variavel_p,dado_hexa_p,dado_hexa_o} = req.body;
+    let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p} = req.body;
 
-    dbConn.query('INSERT INTO dados_tm SET ?', {linha:linha, num_equacao: num_equacao, variavel_o:variavel_o,
-                    variavel_p:variavel_p,dado_hexa_o:dado_hexa_o,dado_hexa_p:dado_hexa_p},(error,results)=>{
+    // ARMAZENANDO EM TESTE_TM (MATRIZ)
+    if (numero_linhas.length < 2){
+        PROGRAM.TESTE_TM.push({
+            linha: numero_linhas,
+            equacao: equacoes,
+            var_o: var_o,
+            value_var_o: value_var_o, 
+            var_p: var_p, 
+            value_var_p: value_var_p,
+        });
+    }
+    else {
+        for(var i = 0; i < numero_linhas.length; i++) {
+            PROGRAM.TESTE_TM.push({
+                linha: numero_linhas[i],
+                equacao: equacoes[i],
+                var_o: var_o[i],
+                value_var_o: value_var_o[i], 
+                var_p: var_p[i], 
+                value_var_p: value_var_p[i],
+        });
+        }
+    }
+    
+    let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
+
+    // console.log(req.body);
+
+    // dbConn.query('INSERT INTO dados_tm SET ?', {linha:linha, num_equacao: num_equacao, variavel_o:variavel_o,
+    //                 variavel_p:variavel_p,dado_hexa_o:dado_hexa_o,dado_hexa_p:dado_hexa_p},(error,results)=>{
+    //     if(error){
+    //         console.log(error);
+    //     }else{
+    //         console.log(results);
+    //         return res.render('result',{  
+    //             program: PROGRAM,
+                
+    //         });
+    //     }
+    // })
+
+    const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso) VALUES ?'
+
+    dbConn.query(insert_p_uso, [hexa_p_results],(error,results)=>{
         if(error){
             console.log(error);
         }else{
-            console.log(results);
-            return res.render('result',{  
-                program: PROGRAM,
-                
-            });
+            console.log(line_o);
+            console.log(line_p);
+            console.log(hexa_p_results);
         }
     })
 
-    // ARMAZENANDO EM TESTE_TM (MATRIZ)
-    /*for(var i = 0; i < linha.length; i++) {
-        PROGRAM.TESTE_TM.push([linha[i], 
-            num_equacao[i], 
-            variavel_o[i], 
-            dado_hexa_o[i], 
-            variavel_p[i], 
-            dado_hexa_p[i]]);
-    }*/
+    
 
     // IMPRIMINDO AS LISTAS
     //console.log(PROGRAM.TESTE_TM);

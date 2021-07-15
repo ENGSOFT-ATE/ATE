@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `m_p_uso` (
 CREATE TABLE IF NOT EXISTS `programa_o` (
   `id_o` int(11) NOT NULL AUTO_INCREMENT,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ,
   /*`dt_codificacao` varchar(20) DEFAULT NULL,*/
-  `codigo_o` text,''
+  `codigo_o` text,
   PRIMARY KEY (`id_o`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
