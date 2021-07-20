@@ -52,6 +52,18 @@ function calc_p (results){
 
 }
 
+function calc_v (results){
+    let total_o = 0;    
+    let total_p = 0;
+    for (let i = 0; i < results.length; i++) {
+        if (results[i].equacao === '3'){ 
+            total_o += parseInt(results[i].value_var_o, 16);
+            total_p += parseInt(results[i].value_var_p, 16);
+        }
+    }
+    return [total_o.toString(16), total_p.toString(16)];
+}
+
 
 app.get('/', function(req, res){
     res.render('index');
@@ -118,24 +130,24 @@ app.get('/testcase', function(req, res){
 });
 
 
-app.get('/metodop-uso', function(req, res){
-    // const {id_programa} = req.body;
-    id_programa = 1
+// app.get('/metodop-uso', function(req, res){
+//     // const {id_programa} = req.body;
+//     id_programa = 1
 
-    dbConn.query("SELECT * FROM dados_tm WHERE num_equacao = '3' and idpuso = ?", {idpuso: id_programa}, (error, results) => {
-        if (error){
-            console.log(error);
-        }
-        else {
-            calc_p(results);
-            // console.log(results);
-            // console.log(results[1].linha);
-            // return res.json(results);
-            return res.json(calc_p(results));
-            // return results;
-        }
-    })
-})
+//     dbConn.query("SELECT * FROM dados_tm WHERE num_equacao = '3' and idpuso = ?", {idpuso: id_programa}, (error, results) => {
+//         if (error){
+//             console.log(error);
+//         }
+//         else {
+//             calc_p(results);
+//             // console.log(results);
+//             // console.log(results[1].linha);
+//             // return res.json(results);
+//             return res.json(calc_p(results));
+//             // return results;
+//         }
+//     })
+// })
 
 
 app.post('/tabletest', function(req, res){
@@ -208,6 +220,9 @@ app.post('/result', function(req, res){
     }
     
     let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
+    let hexa_v_results = calc_v(PROGRAM.TESTE_TM);  
+
+    console.log("resultados v_var", hexa_v_results);
 
 
 // console.log(req.body);
