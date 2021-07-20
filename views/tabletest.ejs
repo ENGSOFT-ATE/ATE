@@ -94,6 +94,80 @@
                         </tbody>
                     </table>
 
+
+                    <h2 class="h4 mt-5 mb-3">Tabela de Proposições Lógicas e Constantes</h2>
+
+                    <!-- TABELA DE PROPOSIÇÕES LÓGICAS E CONSTANTES-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Linha</th>
+                                <th scope="col">Eq.</th>
+                                <th scope="col">Tipo (O)</th>
+                                <th scope="col">Dado de O</th>
+                                <th scope="col">Tipo(P)</th>
+                                <th scope="col">Dado de P</th>
+                                <th>
+                                    <button type="button" class="btn btn-success" onclick="addRowLog()">+</button>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tableBody_PROPCONST">
+
+                            <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
+                            <tr id="row0">
+                                <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="numero_linhas_PROPCONST">
+                                        <% for (var i = 0; i < prog_o.length; i++) { %>
+                                        <option value="<%= i %>">#<%= i %> <%= prog_o[i] %></option>
+                                        <% } %>
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA EQUAÇÃO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="equacoes_PROPCONST">
+                                        <option value="1" selected>M(c-uso)</option>
+                                        <option value="2">M(p-uso)</option>
+                                        <option value="3">V(var)</option>
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="tipo_o_PROPCONST">
+                                        <option value="1" selected>Proposição Lógica Simples</option>
+                                        <option value="2">Proposição Lógica Composta</option>
+                                        <option value="3">Constante</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_o_PROPCONST" placeholder="Valor O"></td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="tipo_p_PROPCONST">
+                                        <option value="1" selected>Proposição Lógica Simples</option>
+                                        <option value="2">Proposição Lógica Composta</option>
+                                        <option value="3">Constante</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_p_PROPCONST" placeholder="Valor P"></td>
+
+                                <td>
+                                    <button type="button" id="close0" class="btn btn-danger my-2" onclick="removeRowLog(this)">X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                 </section>
 
 

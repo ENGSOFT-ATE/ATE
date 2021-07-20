@@ -170,6 +170,17 @@ app.post('/result', function(req, res){
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
     PROGRAM.TESTE_TM = []
 
+    /*
+    VARIÁVEIS DA OUTRA TABELA EM req.body:
+    
+    numero_linhas_PROPCONST: numero_linhas_PROPCONST, 
+    equacoes_PROPCONST: equacoes_PROPCONST,
+    tipo_o_PROPCONST: tipo_o_PROPCONST,
+    value_var_o_PROPCONST: value_var_o_PROPCONST, 
+    tipo_p_PROPCONST: tipo_p_PROPCONST,
+    value_var_p_PROPCONST: value_var_p_PROPCONST,
+    */
+
     let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p} = req.body;
 
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
