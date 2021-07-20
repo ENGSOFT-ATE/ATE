@@ -1,5 +1,7 @@
 <script>
     let id = 0;
+    let idLog = 0;
+
     function addRow() {
         id++;
         const tableBody = document.getElementById("tableBody");
@@ -46,6 +48,63 @@
     function removeRow(e) {
         const id = e.getAttribute("id").substring(5);
         const tableBody = document.getElementById("tableBody");
+        tableBody.removeChild(document.getElementById(`row${id}`));
+    }
+
+    function addRowLog() {
+        idLog++;
+        const tableBody = document.getElementById("tableBody_PROPCONST");
+        const newRow = document.createElement("tr");
+        newRow.setAttribute("id", `row${idLog}`)
+        newRow.innerHTML = `
+        <td>
+            <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                name="numero_linhas_PROPCONST">
+                <% for (var i = 0; i < prog_o.length; i++) { %>
+                <option value="<%= i %>">#<%= i %> <%= prog_o[i] %></option>
+                <% } %>
+            </select>
+        </td>
+        <td>
+            <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                name="equacoes_PROPCONST">
+                <option value="1" selected>M(c-uso)</option>
+                <option value="2">M(p-uso)</option>
+                <option value="3">V(var)</option>
+            </select>
+        </td>
+        <td>
+            <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                name="tipo_o_PROPCONST">
+                <option value="1" selected>Proposição Lógica Simples</option>
+                <option value="2">Proposição Lógica Composta</option>
+                <option value="3">Constante</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                name="value_var_o_PROPCONST" placeholder="Valor O"></td>
+        <td>
+            <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                name="tipo_p_PROPCONST">
+                <option value="1" selected>Proposição Lógica Simples</option>
+                <option value="2">Proposição Lógica Composta</option>
+                <option value="3">Constante</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                name="value_var_p_PROPCONST" placeholder="Valor P"></td>
+
+        <td>
+            <button type="button" id="close${idLog}" class="btn btn-danger my-2" onclick="removeRowLog(this)">X</button>
+        </td>
+        `
+
+        tableBody.appendChild(newRow);
+    }
+
+    function removeRowLog(e) {
+        const id = e.getAttribute("id").substring(5);
+        const tableBody = document.getElementById("tableBody_PROPCONST");
         tableBody.removeChild(document.getElementById(`row${id}`));
     }
 
