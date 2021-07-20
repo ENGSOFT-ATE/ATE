@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `dados_tm` (
   PRIMARY KEY (`id_dadostm`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
+
 INSERT INTO `dados_tm` (`id_dadostm`, `linha`, `num_equacao`, `variavel_o`, `dado_hexa_o`, `variavel_p`, `dado_hexa_p`, `idvar`, `idpuso`, `idcuso`, `idtestemesa`, `idmutante`, `cod_linha`) VALUES
 (1, '1', '2', 'valor', '28', 'valor', '28', 1, 1, 1, 1, 1, '/*1*/ int buscaBin (int valor, int tam, int v[]) {'),
 (2, '1', '2', 'tam', '5', 'tam', '5', 1, 1, 1, 1, 1, '/*1*/ int buscaBin (int valor, int tam, int v[]) {'),
@@ -103,20 +104,18 @@ CREATE TABLE IF NOT EXISTS `m_p_uso` (
 
 
 CREATE TABLE IF NOT EXISTS `programa_o` (
-  `id_o` int(11) NOT NULL AUTO_INCREMENT,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ,
-  /*`dt_codificacao` varchar(20) DEFAULT NULL,*/
-  `codigo_o` text,
+  `id_o` int(11) NOT NULL AUTO_INCREMENT, 
+  `codigo_o` blob(255),
   PRIMARY KEY (`id_o`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-
+SELECT * FROM programa_o;
 
 INSERT INTO `programa_o` (`id_o`, `dt_codificacao`, `codigo_o`) VALUES
 (1, 'busca binária', '/*1*/ int buscaBin (int valor, int tam, int v[]) {');
 
 CREATE TABLE IF NOT EXISTS `programa_p` (
   `id_p` int(11) NOT NULL AUTO_INCREMENT,
-  /*`dt_implementacao` varchar(20) DEFAULT NULL,*/
   `codigo_p` text,
   PRIMARY KEY (`id_p`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -124,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `programa_p` (
 INSERT INTO `programa_p` (`id_p`, `dt_implementacao`, `codigo_p`) VALUES
 (3, 'bisca binária', '/*1*/ int buscaBin (int valor, int tam, int v[]) {');
 
+SELECT * FROM programa_p; 
 --
 -- Estrutura da tabela `teste_mesa`
 --
@@ -174,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `mutantes` (
 --
 -- Estrutura da tabela `v_var`
 --
+SELECT * FROM caminho; 
 
 CREATE TABLE IF NOT EXISTS `v_var` (
   `id_var` int(11) NOT NULL AUTO_INCREMENT,

@@ -32,31 +32,31 @@ PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
 PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
 
 
-function calc_p (results){
+function calc_p(results) {
 
     let line_o = {}
     let line_p = {}
-    let total_o  = 0
-    let total_p  = 0
+    let total_o = 0
+    let total_p = 0
     for (let i = 0; i < results.length; i++) {
         line_o[results[i].linha] = isNaN(parseInt(line_o[results[i].linha])) ? 0 : line_o[results[i].linha];
         line_p[results[i].linha] = isNaN(parseInt(line_p[results[i].linha])) ? 0 : line_p[results[i].linha];
-        if (results[i].equacao === '2'){
+        if (results[i].equacao === '2') {
             line_o[results[i].linha] += parseInt(results[i].value_var_o, 16);
             line_p[results[i].linha] += parseInt(results[i].value_var_p, 16);
             total_o += parseInt(results[i].value_var_o, 16);
             total_p += parseInt(results[i].value_var_p, 16);
         }
     }
-    return [line_o, line_p,[total_o.toString(16),total_p.toString(16)]]
+    return [line_o, line_p, [total_o.toString(16), total_p.toString(16)]]
 
 }
 
-function calc_v (results){
-    let total_o = 0;    
+function calc_v(results) {
+    let total_o = 0;
     let total_p = 0;
     for (let i = 0; i < results.length; i++) {
-        if (results[i].equacao === '3'){ 
+        if (results[i].equacao === '3') {
             total_o += parseInt(results[i].value_var_o, 16);
             total_p += parseInt(results[i].value_var_p, 16);
         }
@@ -65,34 +65,36 @@ function calc_v (results){
 }
 
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.render('index');
 });
 
 
 
-app.get('/conf', function(req, res){
+app.get('/conf', function (req, res) {
     console.log("PASSOU NO GET DE PAG1!");
 
-     // LIMPANDO VETOR DE PAG2 (CASO CLIQUE NO BOTÃO DE VOLTAR)
-     PROGRAM.VALUE_VARS_PROG_O = [];
-     PROGRAM.VALUE_VARS_PROG_P = [];
+    // LIMPANDO VETOR DE PAG2 (CASO CLIQUE NO BOTÃO DE VOLTAR)
+    PROGRAM.VALUE_VARS_PROG_O = [];
+    PROGRAM.VALUE_VARS_PROG_P = [];
+
 
     res.render('conf', {
         program: PROGRAM,
     });
-});
+})
 
 
 
 
-app.post('/testcase', function(req, res){
+
+app.post('/testcase', function (req, res) {
     // PROGRAMAS O E P
     // VARS PROG O E PROG P
     // SUBCAMINHOS e SUBCAMINHOS COM NOTAÇÃO de O E P
- 
 
-    let {prog_o, prog_p,vars_prog_o,vars_prog_p,subcaminho_o,subcaminho_o_not,subcaminho_p,subcaminho_p_not} = req.body;
+
+    let { prog_o, prog_p, vars_prog_o, vars_prog_p, subcaminho_o, subcaminho_o_not, subcaminho_p, subcaminho_p_not } = req.body;
 
     // SIMULANDO ARMAZENAMENTO
     PROGRAM.PROG_O = prog_o;
@@ -105,25 +107,46 @@ app.post('/testcase', function(req, res){
     PROGRAM.SUBCAMINHO_P_NOT = subcaminho_p_not;
 
     // IMPRIMINDO
-    console.log(prog_o);
-    console.log(prog_p);
-    console.log(vars_prog_o);
-    console.log(vars_prog_p);
-    console.log(subcaminho_o);
-    console.log(subcaminho_p);
-    console.log(subcaminho_o_not);
-    console.log(subcaminho_p_not);
+
+    dbConn.query('INSERT INTO caminho SET ? ', { def_usoO: PROGRAM.SUBCAMINHO_O_NOT, def_usoP: PROGRAM.SUBCAMINHO_P_NOT, subcaminhoO: PROGRAM.SUBCAMINHO_O, subcaminhoP: PROGRAM.SUBCAMINHO_P },
+        (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(results);
+            }
+        })
+
+    dbConn.query('INSERT INTO programa_o SET ? ', { codigo_o: PROGRAM.PROG_O },
+        (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(results);
+            }
+        })
+
+    dbConn.query('INSERT INTO programa_p SET ? ', { codigo_p: PROGRAM.PROG_P },
+        (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(results);
+            }
+        })
 
     res.render('testcase', {
         program: PROGRAM,
     });
+
+
 });
 
-app.get('/testcase', function(req, res){
+app.get('/testcase', function (req, res) {
     console.log("PASSOU NO GET DE CASO DE TESTE!");
 
     // LIMPANDO A TABELA TM (CASO CLIQUE NO BOTÃO DE VOLTAR NA PAG3)
-    PROGRAM.TESTE_TM = []; 
+    PROGRAM.TESTE_TM = [];
     res.render('testcase', {
         program: PROGRAM,
     });
@@ -150,7 +173,7 @@ app.get('/testcase', function(req, res){
 // })
 
 
-app.post('/tabletest', function(req, res){
+app.post('/tabletest', function (req, res) {
     // VALORES DAS VARIÁVEIS DE O E P
     let value_vars_prog_o = req.body.value_vars_prog_o; // ARRAY
     let value_vars_prog_p = req.body.value_vars_prog_p; // ARRAY
@@ -168,7 +191,7 @@ app.post('/tabletest', function(req, res){
     });
 });
 
-app.get('/tabletest', function(req, res){
+app.get('/tabletest', function (req, res) {
     console.log("PASSOU NO GET DE TABLETEST!");
     res.render('tabletest', {
         program: PROGRAM,
@@ -178,7 +201,7 @@ app.get('/tabletest', function(req, res){
 
 
 
-app.post('/result', function(req, res){
+app.post('/result', function (req, res) {
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
     PROGRAM.TESTE_TM = []
 
@@ -193,111 +216,80 @@ app.post('/result', function(req, res){
     value_var_p_PROPCONST: value_var_p_PROPCONST,
     */
 
-    let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p} = req.body;
+    let { numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p } = req.body;
 
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
-    if (numero_linhas.length < 2){
+    if (numero_linhas.length < 2) {
         PROGRAM.TESTE_TM.push({
             linha: numero_linhas,
             equacao: equacoes,
             var_o: var_o,
-            value_var_o: value_var_o, 
-            var_p: var_p, 
+            value_var_o: value_var_o,
+            var_p: var_p,
             value_var_p: value_var_p,
         });
     }
     else {
-        for(var i = 0; i < numero_linhas.length; i++) {
+        for (var i = 0; i < numero_linhas.length; i++) {
             PROGRAM.TESTE_TM.push({
                 linha: numero_linhas[i],
                 equacao: equacoes[i],
                 var_o: var_o[i],
-                value_var_o: value_var_o[i], 
-                var_p: var_p[i], 
+                value_var_o: value_var_o[i],
+                var_p: var_p[i],
                 value_var_p: value_var_p[i],
-        });
+            });
         }
+
+
+        let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
+        let hexa_v_results = calc_v(PROGRAM.TESTE_TM);
+
+        console.log("resultados v_var", hexa_v_results);
+        /**Verificar Método P- Uso se funcina */
+        const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) SET ?'
+
+        dbConn.query(insert_p_uso, [hexa_p_results[0], hexa_p_results[1]], (error, results) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(line_o);
+                console.log(line_p);
+                console.log(hexa_p_results);
+            }
+        })
+
     }
+
+
+
+
+    /**
+     * FALTA FAZER O INSERT DA TABELA DADOS_TM :
+     * 1. PRECISA DO RESULTADO DO MÉTODO P-uso em hexadecimal do programa O e do programa P
+     * 2. PRECISA DO RESULTADO DO MÉTODO VAR em hexa 
+     * 3. PRECISA DO RESULTADO DO MÉTODO  C-uso em hexadecimal do programa O e do programa P
+     * 4. Inserir cada query de inserção nas rotas  
+     */
+    /*
+    const dados_tm = 'INSERT INTO dados_tm (linha,num_equacao,variavel_o,puso_hexa_o,puso_hexa_p,variavel_p,cuso_hexa_o, cuso_hexa_p,dado_hexa_var) VALUES ?'
     
-    let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
-    let hexa_v_results = calc_v(PROGRAM.TESTE_TM);  
-
-    console.log("resultados v_var", hexa_v_results);
-
-
-// console.log(req.body);
-
-
-
-/**
- * FALTA FAZER O INSERT DA TABELA DADOS_TM :
- * 1. PRECISA DO RESULTADO DO MÉTODO C-USO hexa do programa O e do programa P
- * 2. PRECISA DO RESULTADO DO MÉTODO VAR hexa   
- */
-/*
-const dados_tm = 'INSERT INTO dados_tm (linha,num_equacao,variavel_o,puso_hexa_o,puso_hexa_p,variavel_p,cuso_hexa_o, cuso_hexa_p,dado_hexa_var) VALUES ?'
-
-
-dbConn.query(dados_tm,[,PROGRAM.VARS_PROG_O,PROGRAM.VARS_PROG_P],(error,results)=>{
-         if(error){
-             console.log(error);
-         }else{
-             console.log(PROGRAM.SUBCAMINHO_P);
-             console.log(PROGRAM.SUBCAMINHO_O)
-         }
-})*/
-
-
-
-const caminho = 'INSERT INTO caminho (def_usoO,def_usoP,subcaminhoO,subcaminhoP) VALUES ?'
-
-
-dbConn.query(caminho,[PROGRAM.SUBCAMINHO_O_NOT,PROGRAM.SUBCAMINHO_P_NOT,PROGRAM.SUBCAMINHO_O,PROGRAM.SUBCAMINHO_P],(error,results)=>{
-         if(error){
-             console.log(error);
-         }else{
-             console.log(PROGRAM.SUBCAMINHO_P);
-             console.log(PROGRAM.SUBCAMINHO_O)
-         }
-})
-
-
-const programaO = 'INSERT INTO programaO (codigo_o) VALUES ?'
-
-
-dbConn.query(programaO,[PROGRAM.PROG_O],(error,results)=>{
-         if(error){
-             console.log(error);
-         }else{
-             console.log(results);
-         }
-})
-
-
-const programaP = 'INSERT INTO programaP (codigo_p) VALUES ?'
-
-
-dbConn.query(programaP,[PROGRAM.PROG_P],(error,results)=>{
-         if(error){
-             console.log(error);
-         }else{
-             console.log(results);
-         }
-})
-
-const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) VALUES ?'
-
-    dbConn.query(insert_p_uso, [hexa_p_results[0],hexa_p_results[1]],(error,results)=>{
-        if(error){
-            console.log(error);
-        }else{
-            console.log(line_o);
-            console.log(line_p);
-            console.log(hexa_p_results);
-        }
-    })
-
     
+    dbConn.query(dados_tm,[,PROGRAM.VARS_PROG_O,PROGRAM.VARS_PROG_P],(error,results)=>{
+             if(error){
+                 console.log(error);
+             }else{
+                 console.log(PROGRAM.SUBCAMINHO_P);
+                 console.log(PROGRAM.SUBCAMINHO_O)
+             }
+    })*/
+
+
+    /**
+     * Colocar na rota programO e programaP - inserir no banco
+     */
+
+
 
     // IMPRIMINDO AS LISTAS
     //console.log(PROGRAM.TESTE_TM);
