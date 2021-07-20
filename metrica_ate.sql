@@ -50,9 +50,12 @@ CREATE TABLE IF NOT EXISTS `dados_tm` (
   `linha` varchar(5) DEFAULT NULL,
   `num_equacao` varchar(1) DEFAULT NULL,
   `variavel_o` varchar(20) DEFAULT NULL,
-  `dado_hexa_o` varchar(20) DEFAULT NULL,
+  `puso_hexa_o` varchar(20) DEFAULT NULL,
   `variavel_p` varchar(20) DEFAULT NULL,
-  `dado_hexa_p` varchar(20) DEFAULT NULL,
+  `puso_hexa_p` varchar(20) DEFAULT NULL,
+  `dado_hexa_var` varchar(20) DEFAULT NULL,
+  `cuso_hexa_o` varchar(20) DEFAULT NULL,
+  `cuso_hexa_p` varchar(20) DEFAULT NULL,
   `idvar` int(11) DEFAULT NULL,
   `idpuso` int(11) DEFAULT NULL,
   `idcuso` int(11) DEFAULT NULL,
@@ -85,6 +88,7 @@ INSERT INTO `dados_tm` (`id_dadostm`, `linha`, `num_equacao`, `variavel_o`, `dad
 CREATE TABLE IF NOT EXISTS `m_c_uso` (
   `id_cuso` int(11) NOT NULL AUTO_INCREMENT,
   `dt_teste_cuso` varchar(20) DEFAULT NULL,
+  `dt_teste_cusp` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_cuso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -93,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `m_c_uso` (
 CREATE TABLE IF NOT EXISTS `m_p_uso` (
   `id_puso` int(11) NOT NULL AUTO_INCREMENT,
   `dt_teste_puso` varchar(20) DEFAULT NULL,
+  `dt_teste_pusp` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_puso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -172,7 +177,8 @@ CREATE TABLE IF NOT EXISTS `mutantes` (
 
 CREATE TABLE IF NOT EXISTS `v_var` (
   `id_var` int(11) NOT NULL AUTO_INCREMENT,
-  `dt_teste_var` varchar(20) DEFAULT NULL,
+  `dt_teste_varo` varchar(20) DEFAULT NULL,
+  `dt_teste_varp` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_var`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

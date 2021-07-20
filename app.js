@@ -33,6 +33,7 @@ PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_eq
 
 
 function calc_p (results){
+
     let line_o = {}
     let line_p = {}
     let total_o  = 0
@@ -47,7 +48,7 @@ function calc_p (results){
             total_p += parseInt(results[i].value_var_p, 16);
         }
     }
-    return [line_o, line_p,[[total_o.toString(16)], [total_p.toString(16)]]]
+    return [line_o, line_p,[total_o.toString(16),total_p.toString(16)]]
 
 }
 
@@ -197,24 +198,70 @@ app.post('/result', function(req, res){
     
     let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
 
-    // console.log(req.body);
 
-    // dbConn.query('INSERT INTO dados_tm SET ?', {linha:linha, num_equacao: num_equacao, variavel_o:variavel_o,
-    //                 variavel_p:variavel_p,dado_hexa_o:dado_hexa_o,dado_hexa_p:dado_hexa_p},(error,results)=>{
-    //     if(error){
-    //         console.log(error);
-    //     }else{
-    //         console.log(results);
-    //         return res.render('result',{  
-    //             program: PROGRAM,
-                
-    //         });
-    //     }
-    // })
+// console.log(req.body);
 
-    const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso) VALUES ?'
 
-    dbConn.query(insert_p_uso, [hexa_p_results],(error,results)=>{
+
+/**
+ * FALTA FAZER O INSERT DA TABELA DADOS_TM :
+ * 1. PRECISA DO RESULTADO DO MÉTODO C-USO hexa do programa O e do programa P
+ * 2. PRECISA DO RESULTADO DO MÉTODO VAR hexa   
+ */
+/*
+const dados_tm = 'INSERT INTO dados_tm (linha,num_equacao,variavel_o,puso_hexa_o,puso_hexa_p,variavel_p,cuso_hexa_o, cuso_hexa_p,dado_hexa_var) VALUES ?'
+
+
+dbConn.query(dados_tm,[,PROGRAM.VARS_PROG_O,PROGRAM.VARS_PROG_P],(error,results)=>{
+         if(error){
+             console.log(error);
+         }else{
+             console.log(PROGRAM.SUBCAMINHO_P);
+             console.log(PROGRAM.SUBCAMINHO_O)
+         }
+})*/
+
+
+
+const caminho = 'INSERT INTO caminho (def_usoO,def_usoP,subcaminhoO,subcaminhoP) VALUES ?'
+
+
+dbConn.query(caminho,[PROGRAM.SUBCAMINHO_O_NOT,PROGRAM.SUBCAMINHO_P_NOT,PROGRAM.SUBCAMINHO_O,PROGRAM.SUBCAMINHO_P],(error,results)=>{
+         if(error){
+             console.log(error);
+         }else{
+             console.log(PROGRAM.SUBCAMINHO_P);
+             console.log(PROGRAM.SUBCAMINHO_O)
+         }
+})
+
+
+const programaO = 'INSERT INTO programaO (codigo_o) VALUES ?'
+
+
+dbConn.query(programaO,[PROGRAM.PROG_O],(error,results)=>{
+         if(error){
+             console.log(error);
+         }else{
+             console.log(results);
+         }
+})
+
+
+const programaP = 'INSERT INTO programaP (codigo_p) VALUES ?'
+
+
+dbConn.query(programaP,[PROGRAM.PROG_P],(error,results)=>{
+         if(error){
+             console.log(error);
+         }else{
+             console.log(results);
+         }
+})
+
+const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) VALUES ?'
+
+    dbConn.query(insert_p_uso, [hexa_p_results[0],hexa_p_results[1]],(error,results)=>{
         if(error){
             console.log(error);
         }else{
