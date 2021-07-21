@@ -151,9 +151,17 @@ function calc_p(results, resultsP) {
 }
 
 
+//Função para calcular o método v-var
 function calc_v(results) {
   let total_o = 0;
   let total_p = 0;
+/*
+   * Percorre as linhas da Tabela de Mesa.
+   * Caso a equação tenha sido a v-var,
+   * realiza-se a soma dos valores das variáveis O e P em hexadecimal,
+   * sendo que cada índice corresponde a uma linha do código do programa.
+   * Caso o campo do valor esteja vazio, será considerado como valor 0.
+*/
   for (let i = 0; i < results.length; i++) {
     if (results[i].equacao === "3") {
       total_o += parseInt(results[i].value_var_o, 16);
