@@ -227,17 +227,6 @@ app.post('/result', function (req, res) {
     PROGRAM.TESTE_TM = []
     PROGRAM.TESTE_PROP = []
 
-    /*
-    VARIÁVEIS DA OUTRA TABELA EM req.body:
-    
-    numero_linhas_PROPCONST: numero_linhas_PROPCONST, 
-    equacoes_PROPCONST: equacoes_PROPCONST,
-    tipo_o_PROPCONST: tipo_o_PROPCONST,
-    value_var_o_PROPCONST: value_var_o_PROPCONST, 
-    tipo_p_PROPCONST: tipo_p_PROPCONST,
-    value_var_p_PROPCONST: value_var_p_PROPCONST,
-    */
-
     let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p, numero_linhas_PROPCONST, equacoes_PROPCONST, tipo_o_PROPCONST, value_var_o_PROPCONST, tipo_p_PROPCONST, value_var_p_PROPCONST} = req.body;
 
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
@@ -298,13 +287,10 @@ app.post('/result', function (req, res) {
 
     // console.log(req.body);
 
-    let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
-    let hexa_v_results = calc_v(PROGRAM.TESTE_TM);
 
-    console.log("resultados v_var", hexa_v_results);
     /**Verificar Método P- Uso se funcina */
     const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) SET ?'
-
+    /*
     dbConn.query(insert_p_uso, [hexa_p_results[0], hexa_p_results[1]], (error, results) => {
         if (error) {
             console.log(error);
@@ -314,7 +300,7 @@ app.post('/result', function (req, res) {
             console.log(hexa_p_results);
         }
     });
-
+    */
 
 
     /**
@@ -327,7 +313,6 @@ app.post('/result', function (req, res) {
     /*
     const dados_tm = 'INSERT INTO dados_tm (linha,num_equacao,variavel_o,puso_hexa_o,puso_hexa_p,variavel_p,cuso_hexa_o, cuso_hexa_p,dado_hexa_var) VALUES ?'
     
-    
     dbConn.query(dados_tm,[,PROGRAM.VARS_PROG_O,PROGRAM.VARS_PROG_P],(error,results)=>{
              if(error){
                  console.log(error);
@@ -337,11 +322,9 @@ app.post('/result', function (req, res) {
              }
     })*/
 
-
     /**
      * Colocar na rota programO e programaP - inserir no banco
      */
-
 
 
     // IMPRIMINDO AS LISTAS
@@ -353,6 +336,16 @@ app.post('/result', function (req, res) {
      Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
      essas informações da melhor maneira a serem inseridas no banco. 
     ****************************************************************************************************/
+    
+    
+    
+     res.render('result', {
+        program: PROGRAM,
+        line_o: line_o,
+        line_p: line_p,
+        hexa_p_results: hexa_p_results,
+        hexa_v_results: hexa_v_results,
+    });
 });
 
 

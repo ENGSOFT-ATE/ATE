@@ -35,86 +35,37 @@
                         <tr>
                             <th scope="col">Nº</th>
                             <th scope="col">Código</th>
-                            <th scope="col">Valores nas parcelas (em hexadecimal)</th>
                             <th scope="col" class="text-center">M(c-uso)</th>
                             <th scope="col" class="text-center">M(p-uso)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>int bBinaria (int valor, int tam, int v[]) {</td>
-                            <td>(28+5+96)+(0)+(0)</td>
-                            <td class="text-center">C3</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>int esq = 0, mid, dir = tam-1;</td>
-                            <td>(0+0+4+5)+(3D+3D+2D)+(1)</td>
-                            <td class="text-center">B1</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>while (esq <= dir) {</td>
-                            <td>(0)+(0+3C+3D+4+1)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">7E</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>mid = (esq + dir)/2;</td>
-                            <td> (2+0+4)+(3D+2B+2F)+(2)</td>
-                            <td class="text-center">9F</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>if (v[mid] == valor)</td>
-                            <td>(0)+(30+3D+3D+40+0)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">EA</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>return mid;</td>
-                            <td>-</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>if (v[mid] < valor)</td>
-                            <td>(0)+(30+3C+40+1)+(0) </td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">AD</td>
+                        <% let prog_o = program.PROG_O.split('\n') %>
+                        <% for (var i = 0; i < prog_o.length; i++) { %>
+                            <tr>
+                                <th scope="row"><%= i %></th>
+                                <td><%= prog_o[i] %></td>
+                                <td class="text-center">Sem cálculo</td>
+                                <td class="text-center"><%= line_o[i] %></td>
+                            </tr>
+                        <% } %>
+
+                        <tr class="table-primary">
+                            <th colspan="2" style="text-align: right;">Soma:</th>
+                            <th class="text-center">Sem cálculo</th>
+                            <th class="text-center"><%= hexa_p_results[0] %></th>
                         </tr>
                         <tr class="table-primary">
-                            <th colspan="3" style="text-align: right;">Soma:</th>
-                            <th class="text-center">213</th>
-                            <th class="text-center">215</th>
-                        </tr>
-                        <tr class="table-primary">
-                            <th colspan="3" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th colspan="2" class="text-center">428</th>
+                            <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
+                            <th colspan="2" class="text-center">c-uso + <%= hexa_p_results[0] %></th>
                         </tr>
                         <tr>
-                            <th>V(var)</th>
-                            <th>
-                                V(var)<br/>
-                                valor=40;tam=5;v[]={10,20,30,40,50};<br/>
-                                esq=3;mid=3; <br/>
-                                dir=4;v[mid]=40;while(esq<=dir)=V;<br/>
-                                if(v[mid]==valor)=V;if(v[mid]<valor)=>;<br/>
-                                Saída=3
-                            </th>
-                            <th>(28+5+96+3+3+4+28+1+1+0)+(3)</th>
-                            <th colspan="2" class="text-center">172</th>
+                            <th colspan="2" style="text-align: right;">V(var)</th>
+                            <th colspan="2" class="text-center"><%= hexa_v_results[0] %></th>
                         </tr>
                         <tr class="table-info">
-                            <th colspan="3" style="text-align: right;">Cálculo AtE do Programa O:</th>
-                            <th colspan="2" class="text-center">59A</th>
+                            <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
+                            <th colspan="2" class="text-center">c-uso + <%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>
@@ -129,86 +80,37 @@
                         <tr>
                             <th scope="col">Nº</th>
                             <th scope="col">Código</th>
-                            <th scope="col">Valores nas parcelas (em hexadecimal)</th>
                             <th scope="col" class="text-center">M(c-uso)</th>
                             <th scope="col" class="text-center">M(p-uso)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>int bBinaria (int valor, int tam, int v[]) {</td>
-                            <td>(28+5+96)+(0)+(0)</td>
-                            <td class="text-center">C3</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>int esq = 0, mid, dir = tam-1;</td>
-                            <td>(0+0+4+5)+(3D+3D+2D)+(1)</td>
-                            <td class="text-center">B1</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr class="table-danger">
-                            <th scope="row">3</th>
-                            <td>while (esq < dir) {</td>
-                            <td>(0)+(0+3C+4+1)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">41</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>mid = (esq + dir)/2;</td>
-                            <td> (2+0+4)+(3D+2B+2F)+(2)</td>
-                            <td class="text-center">9F</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>if (v[mid] == valor)</td>
-                            <td>(0)+(30+3D+3D+40+0)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">EA</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>return mid;</td>
-                            <td>-</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">-</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>if (v[mid] < valor)</td>
-                            <td>(0)+(30+3C+40+1)+(0) </td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">AD</td>
+                        <% let prog_p = program.PROG_P.split('\n') %>
+                        <% for (var i = 0; i < prog_p.length; i++) { %>
+                            <tr>
+                                <th scope="row"><%= i %></th>
+                                <td><%= prog_p[i] %></td>
+                                <td class="text-center">Sem cálculo</td>
+                                <td class="text-center"><%= line_p[i] %></td>
+                            </tr>
+                        <% } %>
+
+                        <tr class="table-primary">
+                            <th colspan="2" style="text-align: right;">Soma:</th>
+                            <th class="text-center">Sem cálculo</th>
+                            <th class="text-center"><%= hexa_p_results[1] %></th>
                         </tr>
                         <tr class="table-primary">
-                            <th colspan="3" style="text-align: right;">Soma:</th>
-                            <th class="text-center">213</th>
-                            <th class="text-center">1D8</th>
-                        </tr>
-                        <tr class="table-primary">
-                            <th colspan="3" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th colspan="2" class="text-center">3EB</th>
+                            <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
+                            <th colspan="2" class="text-center">c-uso + <%= hexa_p_results[1] %></th>
                         </tr>
                         <tr>
-                            <th>V(var)</th>
-                            <th>
-                                V(var)<br/>
-                                valor=40;tam=5;v[]={10,20,30,40,50};<br/>
-                                esq=3;mid=3; <br/>
-                                dir=4;v[mid]=40;while(esq<=dir)=V;<br/>
-                                if(v[mid]==valor)=V;if(v[mid]<valor)=>;<br/>
-                                Saída=3
-                            </th>
-                            <th>(28+5+96+3+3+4+28+1+1+0)+(3)</th>
-                            <th colspan="2" class="text-center">172</th>
+                            <th colspan="2" style="text-align: right;">V(var)</th>
+                            <th colspan="2" class="text-center"><%= hexa_v_results[1] %></th>
                         </tr>
                         <tr class="table-info">
-                            <th colspan="3" style="text-align: right;">Cálculo AtE do Programa P:</th>
-                            <th colspan="2" class="text-center">55D</th>
+                            <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
+                            <th colspan="2" class="text-center">c-uso + <%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>
