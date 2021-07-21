@@ -39,6 +39,39 @@ function convert_arr_16 (arr_convert){
     return arr_convert
 }
 
+function calc_c (results, resultsP){
+
+    let line_o = Array(size).fill(0);
+    let line_p = Array(size).fill(0);
+    let total_o  = 0
+    let total_p  = 0
+    let o = 0
+    let p = 0
+    for (let i = 0; i < results.length; i++) {
+        if (results[i].equacao === '1'){
+            o = isNaN(parseInt(results[i].value_var_o, 16)) ? 0 : parseInt(results[i].value_var_o, 16)
+            p = isNaN(parseInt(results[i].value_var_p, 16)) ? 0 : parseInt(results[i].value_var_p, 16)
+            line_o[parseInt(results[i].linha)] += o;
+            line_p[parseInt(results[i].linha)] += p;
+            total_o += o;
+            total_p += p;
+        }
+    }
+    for (let i = 0; i < resultsP.length; i++) {
+        if (resultsP[i].equacao === '1' && resultsP.value_var_o !== '0' && resultsP.value_var_p !== '0'){
+            o = isNaN(parseInt(resultsP[i].value_var_o, 16)) ? 0 : parseInt(resultsP[i].value_var_o, 16)
+            p = isNaN(parseInt(resultsP[i].value_var_p, 16)) ? 0 : parseInt(resultsP[i].value_var_p, 16)
+            line_o[parseInt(resultsP[i].linha)] += o;
+            line_p[parseInt(resultsP[i].linha)] += p;
+            total_o += o;
+            total_p += p;
+        }
+    }
+    line_o = convert_arr_16(line_o);
+    line_p = convert_arr_16(line_p);
+    return [line_o, line_p, [total_o.toString(16),total_p.toString(16)]]
+}
+
 function calc_p (results, resultsP){
 
     let line_o = Array(size).fill(0);
@@ -278,17 +311,19 @@ app.post('/result', function (req, res) {
 
     // console.log(PROGRAM.TESTE_PROP)
     
+    let [line_x, line_y, hexa_c_results] = calc_c(PROGRAM.TESTE_TM, PROGRAM.TESTE_PROP);
     let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM, PROGRAM.TESTE_PROP);
-    let hexa_v_results = calc_v(PROGRAM.TESTE_TM);  
+    let hexa_v_results = calc_v(PROGRAM.TESTE_TM); 
 
+    console.log("resultados c_var", line_x, line_y, hexa_c_results);
     console.log("resultados p_var", line_o, line_p, hexa_p_results);
     console.log("resultados v_var", hexa_v_results);
-
 
     // console.log(req.body);
 
 
     /**Verificar Método P- Uso se funcina */
+    const insert_c_uso = 'INSERT INTO m_c_uso (dt_teste_cuso,dt_teste_cusp) SET ?'
     const insert_p_uso = 'INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) SET ?'
     /*
     dbConn.query(insert_p_uso, [hexa_p_results[0], hexa_p_results[1]], (error, results) => {
