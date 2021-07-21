@@ -30,25 +30,47 @@ PROGRAM.VALUE_VARS_PROG_P = []; // Valores Teste de Mesa de O
 PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
 
 PROGRAM.TESTE_TM = [];          // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
+let size = 0                    // Maior Quantidade de Linhas entre os dois programas
 
+function convert_arr_16 (arr_convert){
+    for (let i = 0; i < arr_convert.length; i++) {
+        arr_convert[i] = arr_convert[i].toString(16);
+    }
+    return arr_convert
+}
 
-function calc_p (results){
+function calc_p (results, resultsP){
 
-    let line_o = {}
-    let line_p = {}
+    let line_o = Array(size).fill(0);
+    let line_p = Array(size).fill(0);
     let total_o  = 0
     let total_p  = 0
+    let o = 0
+    let p = 0
     for (let i = 0; i < results.length; i++) {
-        line_o[results[i].linha] = isNaN(parseInt(line_o[results[i].linha])) ? 0 : line_o[results[i].linha];
-        line_p[results[i].linha] = isNaN(parseInt(line_p[results[i].linha])) ? 0 : line_p[results[i].linha];
         if (results[i].equacao === '2'){
-            line_o[results[i].linha] += parseInt(results[i].value_var_o, 16);
-            line_p[results[i].linha] += parseInt(results[i].value_var_p, 16);
-            total_o += parseInt(results[i].value_var_o, 16);
-            total_p += parseInt(results[i].value_var_p, 16);
+            o = isNaN(parseInt(results[i].value_var_o, 16)) ? 0 : parseInt(results[i].value_var_o, 16)
+            p = isNaN(parseInt(results[i].value_var_p, 16)) ? 0 : parseInt(results[i].value_var_p, 16)
+            // console.log(o, p);
+            line_o[parseInt(results[i].linha)] += o;
+            line_p[parseInt(results[i].linha)] += p;
+            total_o += o;
+            total_p += p;
         }
     }
-    return [line_o, line_p,[total_o.toString(16),total_p.toString(16)]]
+    for (let i = 0; i < resultsP.length; i++) {
+        if (resultsP[i].equacao === '2' && resultsP.value_var_o !== '3' && resultsP.value_var_p !== '3'){
+            o = isNaN(parseInt(resultsP[i].value_var_o, 16)) ? 0 : parseInt(resultsP[i].value_var_o, 16)
+            p = isNaN(parseInt(resultsP[i].value_var_p, 16)) ? 0 : parseInt(resultsP[i].value_var_p, 16)
+            line_o[parseInt(resultsP[i].linha)] += o;
+            line_p[parseInt(resultsP[i].linha)] += p;
+            total_o += o;
+            total_p += p;
+        }
+    }
+    line_o = convert_arr_16(line_o);
+    line_p = convert_arr_16(line_p);
+    return [line_o, line_p, [total_o.toString(16),total_p.toString(16)]]
 
 }
 
@@ -113,6 +135,9 @@ app.post('/testcase', function(req, res){
     console.log(subcaminho_p);
     console.log(subcaminho_o_not);
     console.log(subcaminho_p_not);
+
+    size = Math.max(prog_o.split('\n').length, prog_p.split('\n').length)
+    console.log(size)
 
     res.render('testcase', {
         program: PROGRAM,
@@ -181,6 +206,7 @@ app.get('/tabletest', function(req, res){
 app.post('/result', function(req, res){
     // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
     PROGRAM.TESTE_TM = []
+    PROGRAM.TESTE_PROP = []
 
     /*
     VARIÁVEIS DA OUTRA TABELA EM req.body:
@@ -193,7 +219,7 @@ app.post('/result', function(req, res){
     value_var_p_PROPCONST: value_var_p_PROPCONST,
     */
 
-    let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p} = req.body;
+    let {numero_linhas, equacoes, var_o, value_var_o, var_p, value_var_p, numero_linhas_PROPCONST, equacoes_PROPCONST, tipo_o_PROPCONST, value_var_o_PROPCONST, tipo_p_PROPCONST, value_var_p_PROPCONST} = req.body;
 
     // ARMAZENANDO EM TESTE_TM (MATRIZ)
     if (numero_linhas.length < 2){
@@ -218,10 +244,36 @@ app.post('/result', function(req, res){
         });
         }
     }
+
+    if (numero_linhas_PROPCONST.length < 2){
+        PROGRAM.TESTE_PROP.push({
+            linha: numero_linhas_PROPCONST,
+            equacao: equacoes_PROPCONST,
+            var_o: tipo_o_PROPCONST,
+            value_var_o: value_var_o_PROPCONST, 
+            var_p: tipo_p_PROPCONST, 
+            value_var_p: value_var_p_PROPCONST,
+        });
+    }
+    else {
+        for(var i = 0; i < numero_linhas_PROPCONST.length; i++) {
+            PROGRAM.TESTE_PROP.push({
+                linha: numero_linhas_PROPCONST[i],
+                equacao: equacoes_PROPCONST[i],
+                var_o: tipo_o_PROPCONST[i],
+                value_var_o: value_var_o_PROPCONST[i], 
+                var_p: tipo_p_PROPCONST[i], 
+                value_var_p: value_var_p_PROPCONST[i],
+        });
+        }
+    }
+
+    // console.log(PROGRAM.TESTE_PROP)
     
-    let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM);
+    let [line_o, line_p, hexa_p_results] = calc_p(PROGRAM.TESTE_TM, PROGRAM.TESTE_PROP);
     let hexa_v_results = calc_v(PROGRAM.TESTE_TM);  
 
+    console.log("resultados p_var", line_o, line_p, hexa_p_results);
     console.log("resultados v_var", hexa_v_results);
 
 
