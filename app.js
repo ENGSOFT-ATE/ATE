@@ -42,7 +42,7 @@ function convert_arr_16(arr_convert) {
   return arr_convert;
 }
 
-
+// CALCULO DO METODO C-USO
 function calc_c(results, resultsP) {
   let line_o = Array(size).fill(0);
   let line_p = Array(size).fill(0);
@@ -50,6 +50,9 @@ function calc_c(results, resultsP) {
   let total_p = 0;
   let o = 0;
   let p = 0;
+	
+// Percore cada linha de codigo armazenado no vetor results buscando as variaveis c-uso
+// Se equacao === 1 e value_var_o, value_var_p pertencem a c-uso, essas variáveis serão somadas separadamente em total_o e total_p
   for (let i = 0; i < results.length; i++) {
     if (results[i].equacao === "1") {
       o = isNaN(parseInt(results[i].value_var_o, 16))
@@ -64,6 +67,9 @@ function calc_c(results, resultsP) {
       total_p += p;
     }
   }
+	
+// Percorre cada linha de codigo armazenado no vetor resultsP buscando as constantes pertencentes a c-uso
+// Se equacao === 1 e value_var_o, value_var_p forem diferente de zero, essas constantes serão somadas separadamente em total_o e total_p
   for (let i = 0; i < resultsP.length; i++) {
     if (
       resultsP[i].equacao === "1" &&
@@ -393,12 +399,14 @@ app.post("/result", function (req, res) {
     }
   }
 
-  // console.log(PROGRAM.TESTE_PROP)
-
+  
+  //Calculo de c-uso passando como parametro os vetores TESTE_TM E TESTE_PROP
+  // O retorno da funcao é colocado nas variaveis, line_x, line_y e hexa_c_results
   let [line_x, line_y, hexa_c_results] = calc_c(
     PROGRAM.TESTE_TM,
     PROGRAM.TESTE_PROP
   );
+	
   let [line_o, line_p, hexa_p_results] = calc_p(
     PROGRAM.TESTE_TM,
     PROGRAM.TESTE_PROP
