@@ -207,7 +207,10 @@ app.post("/testcase", function (req, res) {
   PROGRAM.SUBCAMINHO_O_NOT = subcaminho_o_not;
   PROGRAM.SUBCAMINHO_P_NOT = subcaminho_p_not;
 
-
+  /**
+   * Insert na tabela caminho dos subcaminhos com notação O e P
+   * Insert na tabela caminho dos subcaminhos O e P
+   */
   dbConn.query(
     "INSERT INTO caminho SET ? ",
     {
@@ -225,6 +228,10 @@ app.post("/testcase", function (req, res) {
     }
   );
 
+  /**
+   * Insert na tabela programa_o o código O inserido pelo usuário
+   */
+
   dbConn.query(
     "INSERT INTO programa_o SET ? ",
     { codigo_o: PROGRAM.PROG_O },
@@ -237,6 +244,10 @@ app.post("/testcase", function (req, res) {
     }
   );
 
+  
+  /**
+   * Insert na tabela programa_p o código P inserido pelo usuário
+   */
   dbConn.query(
     "INSERT INTO programa_p SET ? ",
     { codigo_p: PROGRAM.PROG_P },
@@ -264,6 +275,7 @@ app.get("/testcase", function (req, res) {
   // LIMPANDO A TABELA TM (CASO CLIQUE NO BOTÃO DE VOLTAR NA PAG3)
   PROGRAM.TESTE_TM = [];
 
+  //RENDERIZA A PÁGINA TESTCASE
   res.render("testcase", {
     program: PROGRAM,
   });
@@ -407,6 +419,10 @@ app.post("/result", function (req, res) {
   // console.log("resultados p_var", line_o, line_p, hexa_p_results);
   // console.log("resultados v_var", hexa_v_results);
 
+
+  /**
+   * Inserts no banco na tabela mp_uso dos resultados em hexadecimal do programa O e P
+   */
   dbConn.query(
     "INSERT INTO m_p_uso SET ? ",
     { dt_teste_puso: hexa_p_results[0],dt_teste_pusp:hexa_p_results[1]},
@@ -418,7 +434,10 @@ app.post("/result", function (req, res) {
       }
     }
   );
-
+  
+  /**
+   * Inserts no banco na tabela mc_uso dos resultados em hexadecimal do programa O e P
+   */
   dbConn.query(
     "INSERT INTO m_c_uso SET ? ",
     { dt_teste_cuso: hexa_c_results[0],dt_teste_cusp:hexa_c_results[1]},
@@ -431,6 +450,9 @@ app.post("/result", function (req, res) {
     }
   );
   
+  /**
+   * Inserts no banco na tabela dados_tm da linha, número equação variável O e P
+   */
   const dados_tm = "INSERT INTO dados_tm SET ?";
 
   for (let i = 0; i < PROGRAM.TESTE_TM.length; i++) {
@@ -453,7 +475,7 @@ app.post("/result", function (req, res) {
     );
   }
 
-  
+  //RENDERIZA A PÁGINA RESULT E EXIBE RESULTADOS   
   res.render("result", {
     program: PROGRAM,
     line_o: line_o,
