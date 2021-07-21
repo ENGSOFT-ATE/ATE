@@ -87,7 +87,7 @@
                     <tbody>
                         <% let prog_p = program.PROG_P.split('\n') %>
                         <% for (var i = 0; i < prog_p.length; i++) { %>
-                            <tr>
+                            <tr class="<%if (line_p[i]!=line_o[i]) {%>  table-danger  <%}%>">
                                 <th scope="row"><%= i %></th>
                                 <td><%= prog_p[i] %></td>
                                 <td class="text-center">Sem cálculo</td>
@@ -121,13 +121,20 @@
             <!-- RESULTADO DA COMPARAÇÃO -->
             <section class="row my-5">
                 <h2 class="h4">Resultado da Comparação</h2>
-                <h4 class="h6" style="color:red">1 linha encontrada.</h4>
+                <% var result = 0 %>
+                <% for (var i = 0; i < prog_o.length; i++) { %>
+                    <% if (line_p[i]!=line_o[i]) { %>
+                        <% result++ %>
+                    <%}%>
+                <%}%>
+                
+                <h4 class="h6" style="color:red"><%= result %> linha encontrada.</h4>
                 <table class="table table-hover TableProg m-3">
                     <thead>
                         <tr>
                             <th></th>
-                            <th scope="col" colspan="4">Programa O</th>
-                            <th scope="col" colspan="4">Programa P</th>
+                            <th scope="col" colspan="3">Programa O</th>
+                            <th scope="col" colspan="3">Programa P</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,30 +142,32 @@
                             <th scope="col">Nº</th>
 
                             <th scope="col">Código</th>
-                            <th scope="col">Valores nas parcelas (em hexadecimal)</th>
                             <th scope="col" class="text-center">M(c-uso)</th>
                             <th scope="col" class="text-center">M(p-uso)</th>
 
                             <th scope="col">Código</th>
-                            <th scope="col">Valores nas parcelas (em hexadecimal)</th>
                             <th scope="col" class="text-center">M(c-uso)</th>
                             <th scope="col" class="text-center">M(p-uso)</th>
                         </tr>
-                        <tr class="table-danger" style="color:red;">
-                            <th scope="row">3</th>
+                        <% for (var i = 0; i < prog_o.length; i++) { %>
+                            <% if (line_p[i]!=line_o[i]) { %>
+                                <tr class="table-danger" style="color:red;">
+                                    <th scope="row"><%= i %></th>
+    
+                                    <!-- PROGRAMA O -->
+                                    <td><%= prog_o[i] %></td>
+                                    <td class="text-center">Não calculado</td>
+                                    <td class="text-center"><%= line_o[i] %></td>
+                                        
+                                    <!-- PROGRAMA P -->
+                                    <td><%= prog_p[i] %></td>
+                                    <td class="text-center">Não calculado</td>
+                                    <td class="text-center"><%= line_p[i] %></td>
+                                </tr>
+                            <%}%>
+                            
+                        <% } %>
 
-                            <!-- PROGRAMA O -->
-                            <td>while (esq <= dir) {</td>
-                            <td>(0)+(0+3C+3D+4+1)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">7E</td>
-                                
-                            <!-- PROGRAMA P -->
-                            <td>while (esq < dir) {</td>
-                            <td>(0)+(0+3C+4+1)+(0)</td>
-                            <td class="text-center">-</td>
-                            <td class="text-center">41</td>
-                        </tr>
                     </tbody>
                 </table>
 
@@ -174,28 +183,28 @@
                     <tbody>
                         <tr>
                             <th scope="col">Soma M(c-uso):</th>
-                            <th scope="col">213</th>
-                            <th scope="col">213</th>
+                            <th scope="col">Não calculado</th>
+                            <th scope="col">Não calculado</th>
                         </tr>
-                        <tr class="table-danger" style="color:red;">
-                            <th scope="col">Soma P(c-uso):</th>
-                            <th scope="col">215</th>
-                            <th scope="col">1D8</th>
+                        <tr>
+                            <th scope="col">Soma M(p-uso):</th>
+                            <th scope="col"><%= hexa_p_results[0] %></th>
+                            <th scope="col"><%= hexa_p_results[1] %></th>
                         </tr>
                         <tr>
                             <th scope="col">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th scope="col">428</th>
-                            <th scope="col">3EB</th>
+                            <th scope="col">c-uso + <%= hexa_p_results[0] %></th>
+                            <th scope="col">c-uso + <%= hexa_p_results[1] %></th>
                         </tr>
                         <tr>
                             <th scope="col">V(var):</th>
-                            <th scope="col">172</th>
-                            <th scope="col">172</th>
+                            <th scope="col"><%= hexa_v_results[0] %></th>
+                            <th scope="col"><%= hexa_v_results[1] %></th>
                         </tr>
                         <tr class="table-secondary">
                             <th scope="col">Cálculo AtE do Programa:</th>
-                            <th scope="col">59A</th>
-                            <th scope="col">55D</th>
+                            <th scope="col">c-uso + <%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
+                            <th scope="col">c-uso + <%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>
