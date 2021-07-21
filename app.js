@@ -33,6 +33,9 @@ let size = 0; // Maior Quantidade de Linhas entre os dois programas
 
 
 function convert_arr_16(arr_convert) {
+  /**
+   * Converte cada elemento do array para uma string com valor hexadecimal.
+   */
   for (let i = 0; i < arr_convert.length; i++) {
     arr_convert[i] = arr_convert[i].toString(16);
   }
@@ -92,6 +95,14 @@ function calc_p(results, resultsP) {
   let total_p = 0;
   let o = 0;
   let p = 0;
+  /**
+   * Percorre as linhas da Tabela de Mesa.
+   * Caso a equação tenha sido a p-uso,
+   * realiza-se a soma dos valores em hexadecimal no índice dos vetores line_o e line_p,
+   * que correspondem respectivamente às linhas dos programas O e P,
+   * sendo que cada índice corresponde a uma linha do código do programa.
+   * Caso o campo do valor esteja vazio, será considerado como valor 0.
+   */
   for (let i = 0; i < results.length; i++) {
     if (results[i].equacao === "2") {
       o = isNaN(parseInt(results[i].value_var_o, 16))
@@ -107,11 +118,20 @@ function calc_p(results, resultsP) {
       total_p += p;
     }
   }
+
+  /*
+   * Percorre as linhas da Tabela de Proposições.
+   * Caso a equação tenha sido a p-uso e os tipos sejam diferentes do tipo "Constante",
+   * realiza-se a soma dos valores em hexadecimal no índice dos vetores line_o e line_p,
+   * que correspondem respectivamente às linhas dos programas O e P,
+   * sendo que cada índice corresponde a uma linha do código do programa.
+   * Caso o campo do valor esteja vazio, será considerado como valor 0.
+  */
   for (let i = 0; i < resultsP.length; i++) {
     if (
       resultsP[i].equacao === "2" &&
-      resultsP.value_var_o !== "3" &&
-      resultsP.value_var_p !== "3"
+      resultsP[i].var_o !== "3" &&
+      resultsP[i].var_p !== "3"
     ) {
       o = isNaN(parseInt(resultsP[i].value_var_o, 16))
         ? 0
@@ -317,7 +337,11 @@ app.post("/result", function (req, res) {
     value_var_p_PROPCONST,
   } = req.body;
 
-  // ARMAZENANDO EM TESTE_TM (MATRIZ)
+  /* ARMAZENANDO EM TESTE_TM - Array:
+   * Cada índice de PROGRAM.TESTE_TM recebe um objeto
+   * que corresponde a uma linha da tabela do Teste de Mesa e suas informações.
+   * Caso tenha apenas uma linha na tabela, apenas um objeto será criado.
+  */
   if (numero_linhas.length < 2) {
     PROGRAM.TESTE_TM.push({
       linha: numero_linhas,
@@ -339,6 +363,11 @@ app.post("/result", function (req, res) {
       });
     }
   }
+  /* ARMAZENANDO EM TESTE_PROP - Array:
+   * Cada índice de PROGRAM.TESTE_PROP recebe um objeto,
+   * que corresponde a uma linha da tabela das Proposições e suas informações.
+   * Caso tenha apenas uma linha na tabela, apenas um objeto será criado.
+  */
 
   if (numero_linhas_PROPCONST.length < 2) {
     PROGRAM.TESTE_PROP.push({
@@ -374,9 +403,9 @@ app.post("/result", function (req, res) {
   );
   let hexa_v_results = calc_v(PROGRAM.TESTE_TM);
 
-  console.log("resultados c_var", line_x, line_y, hexa_c_results);
-  console.log("resultados p_var", line_o, line_p, hexa_p_results);
-  console.log("resultados v_var", hexa_v_results);
+  // console.log("resultados c_var", line_x, line_y, hexa_c_results);
+  // console.log("resultados p_var", line_o, line_p, hexa_p_results);
+  // console.log("resultados v_var", hexa_v_results);
 
   dbConn.query(
     "INSERT INTO m_p_uso SET ? ",
