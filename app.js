@@ -352,7 +352,7 @@ app.post("/result", function (req, res) {
 
   // console.log(PROGRAM.TESTE_PROP)
 
-  let [line_o, line_p, hexa_c_results] = calc_c(
+  let [line_x, line_y, hexa_c_results] = calc_c(
     PROGRAM.TESTE_TM,
     PROGRAM.TESTE_PROP
   );
