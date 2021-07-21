@@ -453,6 +453,10 @@ app.post("/result", function (req, res) {
    */
   const dados_tm = "INSERT INTO dados_tm SET ?";
 
+  /**
+   * Iteração feita de acordo com o tamanho do Array PROGRAM.TESTE_TM, tamanho esse que é igual 
+   * a quantidade de linhas do programa e, a cada iteração os dados são inseridos no banco de dados.
+   */
   for (let i = 0; i < PROGRAM.TESTE_TM.length; i++) {
     console.log(PROGRAM.TESTE_TM[i]);
     dbConn.query(
