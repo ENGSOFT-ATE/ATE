@@ -45,19 +45,19 @@
                             <tr>
                                 <th scope="row"><%= i %></th>
                                 <td><%= prog_o[i] %></td>
-                                <td class="text-center">Sem cálculo</td>
+                                <td class="text-center"><%= line_x[i] %></td>
                                 <td class="text-center"><%= line_o[i] %></td>
                             </tr>
                         <% } %>
 
                         <tr class="table-primary">
                             <th colspan="2" style="text-align: right;">Soma:</th>
-                            <th class="text-center">Sem cálculo</th>
+                            <th class="text-center"><%= hexa_c_results[0] %></th>
                             <th class="text-center"><%= hexa_p_results[0] %></th>
                         </tr>
                         <tr class="table-primary">
                             <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th colspan="2" class="text-center">c-uso + <%= hexa_p_results[0] %></th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_c_results[0], 16)).toString(16) %></th>
                         </tr>
                         <tr>
                             <th colspan="2" style="text-align: right;">V(var)</th>
@@ -65,7 +65,7 @@
                         </tr>
                         <tr class="table-info">
                             <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
-                            <th colspan="2" class="text-center">c-uso + <%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_c_results[0], 16) + parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>
@@ -90,19 +90,19 @@
                             <tr class="<%if (line_p[i]!=line_o[i]) {%>  table-danger  <%}%>">
                                 <th scope="row"><%= i %></th>
                                 <td><%= prog_p[i] %></td>
-                                <td class="text-center">Sem cálculo</td>
+                                <td class="text-center"><%= line_y[i] %></td>
                                 <td class="text-center"><%= line_p[i] %></td>
                             </tr>
                         <% } %>
 
                         <tr class="table-primary">
                             <th colspan="2" style="text-align: right;">Soma:</th>
-                            <th class="text-center">Sem cálculo</th>
+                            <th class="text-center"><%= hexa_c_results[1] %></th>
                             <th class="text-center"><%= hexa_p_results[1] %></th>
                         </tr>
                         <tr class="table-primary">
                             <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th colspan="2" class="text-center">c-uso + <%= hexa_p_results[1] %></th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_c_results[1], 16)).toString(16) %></th>
                         </tr>
                         <tr>
                             <th colspan="2" style="text-align: right;">V(var)</th>
@@ -110,7 +110,7 @@
                         </tr>
                         <tr class="table-info">
                             <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
-                            <th colspan="2" class="text-center">c-uso + <%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_c_results[1], 16) + parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>
@@ -156,12 +156,12 @@
     
                                     <!-- PROGRAMA O -->
                                     <td><%= prog_o[i] %></td>
-                                    <td class="text-center">Não calculado</td>
+                                    <td class="text-center"><%= line_x[i] %></td>
                                     <td class="text-center"><%= line_o[i] %></td>
                                         
                                     <!-- PROGRAMA P -->
                                     <td><%= prog_p[i] %></td>
-                                    <td class="text-center">Não calculado</td>
+                                    <td class="text-center"><%= line_y[i] %></td>
                                     <td class="text-center"><%= line_p[i] %></td>
                                 </tr>
                             <%}%>
@@ -183,8 +183,8 @@
                     <tbody>
                         <tr>
                             <th scope="col">Soma M(c-uso):</th>
-                            <th scope="col">Não calculado</th>
-                            <th scope="col">Não calculado</th>
+                            <th scope="col"><%= hexa_c_results[0] %></th>
+                            <th scope="col"><%= hexa_c_results[1] %></th>
                         </tr>
                         <tr>
                             <th scope="col">Soma M(p-uso):</th>
@@ -193,8 +193,8 @@
                         </tr>
                         <tr>
                             <th scope="col">Sub-Total(Mc-uso+Mp-uso):</th>
-                            <th scope="col">c-uso + <%= hexa_p_results[0] %></th>
-                            <th scope="col">c-uso + <%= hexa_p_results[1] %></th>
+                            <th scope="col"><%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_c_results[0], 16)).toString(16) %></th>
+                            <th scope="col"><%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_c_results[1], 16)).toString(16) %></th>
                         </tr>
                         <tr>
                             <th scope="col">V(var):</th>
@@ -203,8 +203,8 @@
                         </tr>
                         <tr class="table-secondary">
                             <th scope="col">Cálculo AtE do Programa:</th>
-                            <th scope="col">c-uso + <%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
-                            <th scope="col">c-uso + <%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
+                            <th scope="col"><%= (parseInt(hexa_c_results[0], 16) + parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
+                            <th scope="col"><%= (parseInt(hexa_c_results[1], 16) + parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
                         </tr>
                     </tbody>
                 </table>

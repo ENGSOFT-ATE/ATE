@@ -380,6 +380,9 @@ app.post('/result', function (req, res) {
         line_p: line_p,
         hexa_p_results: hexa_p_results,
         hexa_v_results: hexa_v_results,
+        line_x: line_x, 
+        line_y: line_y,
+        hexa_c_results: hexa_c_results,
     });
 });
 
