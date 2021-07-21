@@ -366,32 +366,30 @@ app.post("/result", function (req, res) {
   console.log("resultados p_var", line_o, line_p, hexa_p_results);
   console.log("resultados v_var", hexa_v_results);
 
-  // console.log(req.body);
+  dbConn.query(
+    "INSERT INTO m_p_uso SET ? ",
+    { dt_teste_puso: hexa_p_results[0],dt_teste_pusp:hexa_p_results[1]},
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(results);
+      }
+    }
+  );
 
-  /**Verificar Método P- Uso se funcina */
-  const insert_c_uso =
-    "INSERT INTO m_c_uso (dt_teste_cuso,dt_teste_cusp) SET ?";
-  const insert_p_uso =
-    "INSERT INTO m_p_uso (dt_teste_puso,dt_teste_pusp) SET ?";
-  /*
-    dbConn.query(insert_p_uso, [hexa_p_results[0], hexa_p_results[1]], (error, results) => {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(line_o);
-            console.log(line_p);
-            console.log(hexa_p_results);
-        }
-    });
-    */
-
-  /**
-   * FALTA FAZER O INSERT DA TABELA DADOS_TM :
-   * 1. PRECISA DO RESULTADO DO MÉTODO P-uso em hexadecimal do programa O e do programa P
-   * 2. PRECISA DO RESULTADO DO MÉTODO VAR em hexa
-   * 3. PRECISA DO RESULTADO DO MÉTODO  C-uso em hexadecimal do programa O e do programa P
-   * 4. Inserir cada query de inserção nas rotas
-   */
+  dbConn.query(
+    "INSERT INTO m_c_uso SET ? ",
+    { dt_teste_cuso: hexa_c_results[0],dt_teste_cusp:hexa_c_results[1]},
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(results);
+      }
+    }
+  );
+  
   const dados_tm = "INSERT INTO dados_tm SET ?";
 
   for (let i = 0; i < PROGRAM.TESTE_TM.length; i++) {
@@ -414,20 +412,7 @@ app.post("/result", function (req, res) {
     );
   }
 
-  /**
-   * Colocar na rota programO e programaP - inserir no banco
-   */
-
-  // IMPRIMINDO AS LISTAS
-  //console.log(PROGRAM.TESTE_TM);
-
-  /**************************************************************************************************** 
-     NESSE MOMENTO (ANTES DE RENDERIZAR RESULT) ARMAZENA-SE TODOS OS DADOS DE PROGRAM EM BANCO DE DADOS.
-
-     Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
-     essas informações da melhor maneira a serem inseridas no banco. 
-    ****************************************************************************************************/
-
+  
   res.render("result", {
     program: PROGRAM,
     line_o: line_o,
@@ -442,3 +427,17 @@ app.post("/result", function (req, res) {
 
 app.listen(3000);
 console.log("Porta localhost:3000 ..");
+
+/**
+   * Colocar na rota programO e programaP - inserir no banco
+   */
+
+  // IMPRIMINDO AS LISTAS
+  //console.log(PROGRAM.TESTE_TM);
+
+  /**************************************************************************************************** 
+     NESSE MOMENTO (ANTES DE RENDERIZAR RESULT) ARMAZENA-SE TODOS OS DADOS DE PROGRAM EM BANCO DE DADOS.
+
+     Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
+     essas informações da melhor maneira a serem inseridas no banco. 
+    ****************************************************************************************************/
