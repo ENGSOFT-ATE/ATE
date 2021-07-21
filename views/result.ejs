@@ -40,6 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- prog_o é um array onde cada indice corresponde a uma linha do código de O -->
                         <% let prog_o = program.PROG_O.split('\n') %>
                         <% for (var i = 0; i < prog_o.length; i++) { %>
                             <tr>
@@ -85,6 +86,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- prog_p é um array onde cada indice corresponde a uma linha do código de P -->
                         <% let prog_p = program.PROG_P.split('\n') %>
                         <% for (var i = 0; i < prog_p.length; i++) { %>
                             <tr class="<%if (line_p[i]!=line_o[i]) {%>  table-danger  <%}%>">
@@ -121,6 +123,7 @@
             <!-- RESULTADO DA COMPARAÇÃO -->
             <section class="row my-5">
                 <h2 class="h4">Resultado da Comparação</h2>
+                <!-- result GUARDA A QUANTIDADE DE LINHAS QUE NÃO CONTÉM MESMO P-USO E C-USO -->
                 <% var result = 0 %>
                 <% for (var i = 0; i < prog_o.length; i++) { %>
                     <% if (line_p[i]!=line_o[i]) { %>

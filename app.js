@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// VARIÁVEIS GLOBAIS (SIMULANDO ARMAZENAMENTO)
+
+// VARIÁVEIS GLOBAIS QUE ARMAZENAM O PROGRAMA
 let PROGRAM = {};
 PROGRAM.PROG_O = ""; // Programa O
 PROGRAM.PROG_P = ""; // Programa P
@@ -30,12 +31,14 @@ PROGRAM.VALUE_VARS_PROG_O = []; // Valores Teste de Mesa de P
 PROGRAM.TESTE_TM = []; // Tabela TESTE_TM, MATRIZ: [ [num_linha, num_equacao, var_de_o, value, var_de_p, value], ...]
 let size = 0; // Maior Quantidade de Linhas entre os dois programas
 
+
 function convert_arr_16(arr_convert) {
   for (let i = 0; i < arr_convert.length; i++) {
     arr_convert[i] = arr_convert[i].toString(16);
   }
   return arr_convert;
 }
+
 
 function calc_c(results, resultsP) {
   let line_o = Array(size).fill(0);
@@ -80,6 +83,7 @@ function calc_c(results, resultsP) {
   line_p = convert_arr_16(line_p);
   return [line_o, line_p, [total_o.toString(16), total_p.toString(16)]];
 }
+
 
 function calc_p(results, resultsP) {
   let line_o = Array(size).fill(0);
@@ -126,6 +130,7 @@ function calc_p(results, resultsP) {
   return [line_o, line_p, [total_o.toString(16), total_p.toString(16)]];
 }
 
+
 function calc_v(results) {
   let total_o = 0;
   let total_p = 0;
@@ -138,10 +143,12 @@ function calc_v(results) {
   return [total_o.toString(16), total_p.toString(16)];
 }
 
+// ROTA DA PÁGINA DE APRESENTAÇÃO
 app.get("/", function (req, res) {
   res.render("index");
 });
 
+// ROTA DO PASSO 01
 app.get("/conf", function (req, res) {
   console.log("PASSOU NO GET DE PAG1!");
 
@@ -154,11 +161,11 @@ app.get("/conf", function (req, res) {
   });
 });
 
+// ROTA QUE RENDERIZA O PASSO 2 A PARTIR DO POST DO PASSO 1.
 app.post("/testcase", function (req, res) {
   // PROGRAMAS O E P
   // VARS PROG O E PROG P
   // SUBCAMINHOS e SUBCAMINHOS COM NOTAÇÃO de O E P
-
   let {
     prog_o,
     prog_p,
@@ -170,7 +177,7 @@ app.post("/testcase", function (req, res) {
     subcaminho_p_not,
   } = req.body;
 
-  // SIMULANDO ARMAZENAMENTO
+  // ARMAZENANDO NAS VARIÁVEIS GLOBAIS
   PROGRAM.PROG_O = prog_o;
   PROGRAM.PROG_P = prog_p;
   PROGRAM.VARS_PROG_O = vars_prog_o;
@@ -180,7 +187,6 @@ app.post("/testcase", function (req, res) {
   PROGRAM.SUBCAMINHO_O_NOT = subcaminho_o_not;
   PROGRAM.SUBCAMINHO_P_NOT = subcaminho_p_not;
 
-  // IMPRIMINDO
 
   dbConn.query(
     "INSERT INTO caminho SET ? ",
@@ -231,11 +237,13 @@ app.post("/testcase", function (req, res) {
   });
 });
 
+// ROTA CASO RETORNE DO PASSO 3 PARA O PASSO 2.
 app.get("/testcase", function (req, res) {
   console.log("PASSOU NO GET DE CASO DE TESTE!");
 
   // LIMPANDO A TABELA TM (CASO CLIQUE NO BOTÃO DE VOLTAR NA PAG3)
   PROGRAM.TESTE_TM = [];
+
   res.render("testcase", {
     program: PROGRAM,
   });
@@ -260,6 +268,7 @@ app.get("/testcase", function (req, res) {
 //     })
 // })
 
+// ROTA DO PASSO 03 APÓS POST DO PASSO 02
 app.post("/tabletest", function (req, res) {
   // VALORES DAS VARIÁVEIS DE O E P
   let value_vars_prog_o = req.body.value_vars_prog_o; // ARRAY
@@ -278,6 +287,7 @@ app.post("/tabletest", function (req, res) {
   });
 });
 
+// ROTA CASO RETORNE DO RESULT PARA O PASSO 3.
 app.get("/tabletest", function (req, res) {
   console.log("PASSOU NO GET DE TABLETEST!");
   res.render("tabletest", {
@@ -285,7 +295,9 @@ app.get("/tabletest", function (req, res) {
   });
 });
 
+// ROTA DO RESULTADO (APÓS POST DO PASSO 03)
 app.post("/result", function (req, res) {
+	
   // INFORMAÇÕES DO PASSO 3 (TODOS ARRAYS)
   PROGRAM.TESTE_TM = [];
   PROGRAM.TESTE_PROP = [];
@@ -427,17 +439,3 @@ app.post("/result", function (req, res) {
 
 app.listen(3000);
 console.log("Porta localhost:3000 ..");
-
-/**
-   * Colocar na rota programO e programaP - inserir no banco
-   */
-
-  // IMPRIMINDO AS LISTAS
-  //console.log(PROGRAM.TESTE_TM);
-
-  /**************************************************************************************************** 
-     NESSE MOMENTO (ANTES DE RENDERIZAR RESULT) ARMAZENA-SE TODOS OS DADOS DE PROGRAM EM BANCO DE DADOS.
-
-     Os dados estão em strings, listas e matrizes. Quem tiver com a parte de banco de dados deve tratar
-     essas informações da melhor maneira a serem inseridas no banco. 
-    ****************************************************************************************************/
